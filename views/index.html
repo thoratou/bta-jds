@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html ng-app>
+  <head>
+    <title>Site CGI pour les Jeux de Sophia</title>
+    <script src='/static/js/angular.min.js'></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'></link>
+    
+    <script src="/static/js/sign.js"></script>
+
+    
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"></link>
+
+  </head>
+
+  <body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <div class="jumbotron" style="background:#a70036">
+      <div class="container">
+        <h1 class="text-center" style="color:white">Bienvenue sur l'application CGI des Jeux de Sophia</h1>
+        <h4 class="text-center" style="color:white">Les membres CGI sur Sophia Antipolis peuvent créer et s'organiser leur équipe et/ou indiquer leur participation aux différentes épreuves.</h4>
+        <h4 class="text-center" style="color:white">Cette application ne remplace pas l'inscription sur le site des jeux de Sophia, elle permet de simplifier l'organisation entre les membres.</h4>
+      </div>
+    </div>
+
+    <div class="container" ng-controller='SignCtrl'>
+      <div class="form-group row">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4">
+          <div class="input-group">
+            <label for="user" class="sr-only">Username</label>
+            <input type="text" class="form-control" id="user" name="user" ng-model="user">
+            <span class="input-group-addon">@cgi.com</span>
+          </div>
+        </div>
+        <div class="col-xs-4"></div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4">
+          <label for="password" class="sr-only">Password</label>
+          <input type="password" class="form-control" id="password" name="password" ng-model="password">
+        </div>
+        <div class="col-xs-4"></div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4" align="justify">
+          <button type="submit" class="login-button" style="float: left;" ng-click='signin()'><b>Se connecter</b></button>
+          <button type="submit" class="login-button" style="float: right;"  ng-click='signup()'><i>Inscription / Nouveau mot de passe</i></button>
+        </div>
+        <div class="col-xs-4"></div>
+      </div> 
+
+      <!--div class="row">
+        <div class="col-xs-4"></div>
+        <div class="col-xs-4" align="justify">
+          <p>Debug data: {{user}}, {{errormessage}}</p>
+        </div>
+        <div class="col-xs-4"></div>
+      </div -->
+
+      <div class="row"><p></p></div>
+      <div class="row">
+          <div class="text-center">
+            <img src="static/img/BTA2.png" class="rounded mx-auto d-block" alt="BougeTonAgence">
+          </div>
+      </div>
+
+    </div>
+  </body>
+</html>
