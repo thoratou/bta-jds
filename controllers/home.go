@@ -1,13 +1,13 @@
 package controllers
 
 import (
-	"encoding/base64"
 	"encoding/json"
-	"fmt"
-	"net/mail"
-	"net/smtp"
+
+	"bytes"
 
 	"github.com/astaxie/beego"
+	"github.com/boltdb/bolt"
+	"github.com/thoratou/cgi-jds/models"
 )
 
 //HomeController home pase with authentication
@@ -25,17 +25,14 @@ func (c *HomeController) Get() {
 
 //SignInQuery handle login request (post)
 //
-//   req: POST /signin/user {"Password": "your awesome password"}
+//   req: POST /signin {"user": "your username", "password": "your awesome password"}
 //   res: 200 SignInSuccessful
 //   res: 403 Invalid username or password
-//   res: 404 Missing username (client only error)
+//   res: 404 Missing username
 //   res: 405 Missing password
-//   res: Unknown error
+//   res: 500 Unknown error
 func (c *HomeController) SignInQuery() {
-	data := struct {
-		User     string
-		Password string
-	}{}
+	data := models.SignIn{}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &data); err != nil {
 		c.Ctx.Output.SetStatus(500)
 		return
@@ -43,9 +40,11 @@ func (c *HomeController) SignInQuery() {
 
 	user := data.User
 	if user == "" {
-		c.Ctx.Output.SetStatus(403)
+		c.Ctx.Output.SetStatus(404)
 		return
 	}
+
+	mail := user + "@cgi.com"
 
 	password := data.Password
 	if password == "" {
@@ -53,7 +52,36 @@ func (c *HomeController) SignInQuery() {
 		return
 	}
 
-	//user+password checks todo
+	db := GetDB()
+	userData := models.UserData{}
+
+	userExists := false
+	err := db.View(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("User"))
+		v := b.Get([]byte(mail))
+		if len(v) > 0 {
+			if err := json.Unmarshal(v, &userData); err == nil {
+				userExists = true
+			} else {
+				return err
+			}
+		}
+
+		return nil
+	})
+
+	beego.Info("input: ", password, ", toSHA1: ", ConvertToSHA1(password), ", db: ", userData.SHAPassword)
+
+	if err != nil {
+		c.Ctx.Output.SetStatus(501)
+		c.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	if !userExists || !bytes.Equal(userData.SHAPassword, ConvertToSHA1(password)) {
+		c.Ctx.Output.SetStatus(403)
+		return
+	}
 
 	c.Ctx.Output.SetStatus(200)
 }
@@ -78,77 +106,55 @@ func (c *HomeController) SignInReply() {
 }
 */
 
-//SignUpQuery handle password reset or account creation
+//SignUpQuery handle user creation and password reset (post)
+//
+//   req: POST /signup {"user": "your username"}
+//   res: 200 SignInSuccessful
+//   res: 404 Missing username
+//   res: 500 Unknown error
 func (c *HomeController) SignUpQuery() {
-	data := struct {
-		User string
-	}{}
+	data := models.SignUp{}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &data); err != nil {
-		c.Ctx.Output.SetStatus(500)
+		c.Ctx.Output.SetStatus(502)
 		return
 	}
 
 	user := data.User
 	if user == "" {
-		c.Ctx.Output.SetStatus(403)
+		c.Ctx.Output.SetStatus(404)
 		return
 	}
 
-	//DB check to do
+	mail := user + "@cgi.com"
+	newPassword := CreateRandomPassword()
 
-	c.sendMail(user + "@cgi.com")
+	db := GetDB()
+	userData := models.UserData{}
+	userData.SHAPassword = ConvertToSHA1(newPassword)
 
-	c.Ctx.Output.SetStatus(200)
-}
+	beego.Info("random: ", newPassword, ", toSHA1: ", userData.SHAPassword)
 
-func (c *HomeController) sendMail(toAddress string) {
-	// Set up authentication information.
-	auth := smtp.PlainAuth(
-		"",
-		"cgijds2017@gmail.com",
-		"04mai2013",
-		"smtp.gmail.com",
-	)
-
-	from := mail.Address{
-		Name:    "CGI Jeux de Sophia",
-		Address: "cgijds2017@gmail.com",
-	}
-	to := mail.Address{
-		Name:    "",
-		Address: toAddress,
-	}
-	title := "Inscription site CGI Jeux de Sophia"
-
-	body := "Merci de votre inscription sur le site CGI des jeux de Sophia\r\nVotre nouveau mot de passe est ..."
-
-	// Fill header data
-	header := make(map[string]string)
-	header["From"] = from.String()
-	header["To"] = to.String()
-	header["Subject"] = title
-	header["MIME-Version"] = "1.0"
-	header["Content-Type"] = "text/plain; charset=\"utf-8\""
-	header["Content-Transfer-Encoding"] = "base64"
-
-	message := ""
-	for k, v := range header {
-		message += fmt.Sprintf("%s: %s\r\n", k, v)
-	}
-	message += "\r\n" + base64.StdEncoding.EncodeToString([]byte(body))
-
-	// Connect to the server, authenticate, set the sender and recipient,
-	// and send the email all in one step.
-	err := smtp.SendMail(
-		"smtp.gmail.com:587",
-		auth,
-		"cgijds2017@gmail.com",
-		[]string{toAddress},
-		[]byte(message),
-	)
-	if err != nil {
-		c.Ctx.Output.SetStatus(500)
+	if v, err := json.Marshal(userData); err == nil {
+		dbErr := db.Update(func(tx *bolt.Tx) error {
+			b := tx.Bucket([]byte("User"))
+			return b.Put([]byte(mail), v)
+		})
+		if dbErr != nil {
+			c.Ctx.Output.SetStatus(501)
+			c.Ctx.Output.Body([]byte(err.Error()))
+			return
+		}
+	} else {
+		c.Ctx.Output.SetStatus(502)
 		c.Ctx.Output.Body([]byte(err.Error()))
 		return
 	}
+
+	if err := SendMail(mail, newPassword); err != nil {
+		c.Ctx.Output.SetStatus(503)
+		c.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	c.Ctx.Output.SetStatus(200)
 }

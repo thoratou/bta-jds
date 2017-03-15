@@ -16,6 +16,7 @@ function SignCtrl($scope, $http) {
   };
 
   $scope.signin = function() {
+    $scope.user = $scope.user.toLowerCase();
     console.log('trying to sign in: '+$scope.user+','+$scope.password);
     $scope.errormessage = "";
 
@@ -56,6 +57,7 @@ function SignCtrl($scope, $http) {
   };
 
   $scope.signup = function() {
+    $scope.user = $scope.user.toLowerCase();
     console.log('trying to sign up: '+$scope.user);
     $scope.errormessage = "";
 
