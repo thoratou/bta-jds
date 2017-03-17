@@ -57,7 +57,7 @@ func (c *HomeController) SignInQuery() {
 
 	userExists := false
 	err := db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte("User"))
+		b := tx.Bucket([]byte("users"))
 		v := b.Get([]byte(mail))
 		if len(v) > 0 {
 			if err := json.Unmarshal(v, &userData); err == nil {
@@ -136,7 +136,7 @@ func (c *HomeController) SignUpQuery() {
 
 	if v, err := json.Marshal(userData); err == nil {
 		dbErr := db.Update(func(tx *bolt.Tx) error {
-			b := tx.Bucket([]byte("User"))
+			b := tx.Bucket([]byte("users"))
 			return b.Put([]byte(mail), v)
 		})
 		if dbErr != nil {

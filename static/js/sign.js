@@ -1,8 +1,11 @@
-function SignCtrl($scope, $http) {
+SignCtrl.$inject = ['$scope', '$http', '$rootScope'];
+
+function SignCtrl($scope, $http, $rootScope) {
   $scope.user = "";
   $scope.password = "";
-  $scope.loggedin = false;
   $scope.errormessage = "";
+  $rootScope.loggedin = false;
+  $rootScope.mail = "";
 
   var logError = function(data, status) {
     console.log('code '+status+': '+data);
@@ -20,35 +23,32 @@ function SignCtrl($scope, $http) {
     console.log('trying to sign in: '+$scope.user+','+$scope.password);
     $scope.errormessage = "";
 
-    /*
-    $http.post('/signin/'+$scope.user, {password: $scope.password}).
-      success(function() {
-        $http.get('/signin/'+$scope.user).
-          success(function(data) {
-            console.log('sign in process completed');
-            $scope.user = data.user;
-            $scope.haserror = data.haserror;
-            $scope.error = data.error;
-          }).error(logError);
-      }).error(logError);
-    $scope.password = "";
-    */
     $http.post('/signin', {user: $scope.user, password: $scope.password}).
       success(function() {
-        $scope.loggedin = true;
+          $rootScope.loggedin = true;
+          $rootScope.mail = $scope.user+"@cgi.com";
+          
+          var mailURI = encodeURIComponent($rootScope.mail).replace(/\./g, '&middot;')
+          console.log('mailURI: '+mailURI);
+          $http.get('/games/'+$rootScope.mail).
+          success(function(data) {
+            console.log('sign in process completed');
+            $rootScope.gamedata = data;
+          }).error(logError);
+
       }).error(function(error, status) {
         switch(status) {
           case 403:
-              $scope.errormessage = "Invalid username or password";
+              $scope.errormessage = "Mail ou mot de passe invalide";
               break;
           case 404:
-              $scope.errormessage = "Missing username";
+              $scope.errormessage = "Veuillez entrer votre mail";
               break;
           case 405:
-              $scope.errormessage = "Missing password";
+              $scope.errormessage = "Veuillez entrer votre mot de passe";
               break;
           default:
-              $scope.errormessage = "Unknown error, status: "+status;
+              $scope.errormessage = "Erreur inconnue, code: "+status;
         }
       });
 
@@ -66,13 +66,13 @@ function SignCtrl($scope, $http) {
       }).error(function(error, status) {
         switch(status) {
           case 403:
-              $scope.errormessage = "Invalid username";
+              $scope.errormessage = "Mail invalide";
               break;
           case 404:
-              $scope.errormessage = "Missing username";
+              $scope.errormessage = "Veuillez entrer votre mail";
               break;
           default:
-              $scope.errormessage = "Unknown error, status: "+status;
+              $scope.errormessage = "Erreur inconnue, code: "+status;
         }
       });
 
@@ -81,5 +81,9 @@ function SignCtrl($scope, $http) {
 
   };
 
-  refresh().then(function() { $scope.loggedin = false; });
+  $scope.isHidden = function() {
+    return $rootScope.loggedin
+  }
+
+  refresh();
 }
