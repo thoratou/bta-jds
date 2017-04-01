@@ -21,12 +21,6 @@ type DataController struct {
 	beego.Controller
 }
 
-//AddPlayerToGameParams paramaters from player addition to game query
-type AddPlayerToGameParams struct {
-	PlayerID string `json:"playerid"`
-	GameID   string `json:"gameid"`
-}
-
 //Get handle get request
 func (c *DataController) Get() {
 	db := GetDB()
@@ -71,6 +65,12 @@ func (c *DataController) Get() {
 	c.ServeJSON()
 }
 
+//AddPlayerToGameParams paramaters from player addition to game query
+type AddPlayerToGameParams struct {
+	PlayerID string `json:"playerid"`
+	GameID   string `json:"gameid"`
+}
+
 //AddPlayerToGame add a player to game from both IDs
 func (c *DataController) AddPlayerToGame() {
 	params := AddPlayerToGameParams{}
@@ -84,12 +84,11 @@ func (c *DataController) AddPlayerToGame() {
 		b := tx.Bucket([]byte("games"))
 		game, err := DeserializeGameFromDB(b, params.GameID)
 		if err == nil {
-			if !models.PlayerIDListContains(game.Players, params.PlayerID) {
-				game.Players = append(game.Players,
-					models.PlayerData{
-						ID:      params.PlayerID,
-						Comment: "",
-					})
+			if _, ok := game.Players[params.PlayerID]; !ok {
+				game.Players[params.PlayerID] = &models.PlayerData{
+					ID:      params.PlayerID,
+					Comment: "",
+				}
 				err = SerializeGameToDB(b, game)
 			}
 		}
@@ -106,9 +105,15 @@ func (c *DataController) AddPlayerToGame() {
 
 }
 
+//RemovePlayerFromGameParams paramaters from player removal from game query
+type RemovePlayerFromGameParams struct {
+	PlayerID string `json:"playerid"`
+	GameID   string `json:"gameid"`
+}
+
 //RemovePlayerFromGame remove a player from game from both IDs
 func (c *DataController) RemovePlayerFromGame() {
-	params := AddPlayerToGameParams{}
+	params := RemovePlayerFromGameParams{}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &params); err != nil {
 		c.Ctx.Output.SetStatus(500)
 		return
@@ -119,12 +124,43 @@ func (c *DataController) RemovePlayerFromGame() {
 		b := tx.Bucket([]byte("games"))
 		game, err := DeserializeGameFromDB(b, params.GameID)
 		if err == nil {
-			for i, player := range game.Players {
-				if player.ID == params.PlayerID {
-					game.Players = append(game.Players[:i], game.Players[i+1:]...)
-					break
-				}
-			}
+			delete(game.Players, params.PlayerID)
+			err = SerializeGameToDB(b, game)
+		}
+		return err
+	})
+
+	if err != nil {
+		c.Ctx.Output.SetStatus(501)
+		c.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	c.Ctx.Output.SetStatus(200)
+
+}
+
+//SubmitPlayerGameCommentParams paramaters for player comment submission for game query
+type SubmitPlayerGameCommentParams struct {
+	PlayerID string `json:"playerid"`
+	GameID   string `json:"gameid"`
+	Comment  string `json:"comment"`
+}
+
+//SubmitPlayerGameComment submit player comment for game from both IDs
+func (c *DataController) SubmitPlayerGameComment() {
+	params := SubmitPlayerGameCommentParams{}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &params); err != nil {
+		c.Ctx.Output.SetStatus(500)
+		return
+	}
+
+	db := GetDB()
+	err := db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("games"))
+		game, err := DeserializeGameFromDB(b, params.GameID)
+		if err == nil {
+			game.Players[params.PlayerID].Comment = params.Comment
 			err = SerializeGameToDB(b, game)
 		}
 		return err

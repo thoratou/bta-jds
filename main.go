@@ -113,6 +113,7 @@ func main() {
 	beego.Router("/games/*", &controllers.DataController{}, "get:Get")
 	beego.Router("/addPlayerToGame", &controllers.DataController{}, "post:AddPlayerToGame")
 	beego.Router("/removePlayerFromGame", &controllers.DataController{}, "post:RemovePlayerFromGame")
+	beego.Router("/submitPlayerGameComment", &controllers.DataController{}, "post:SubmitPlayerGameComment")
 
 	beego.Run()
 }
