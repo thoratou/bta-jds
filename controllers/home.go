@@ -86,26 +86,6 @@ func (c *HomeController) SignInQuery() {
 	c.Ctx.Output.SetStatus(200)
 }
 
-//SignInReply handle login reply (get)
-//
-//   req: GET /signin/user
-//   res: 200 {"User": "user", "HasError": true, "Error": "Whatever"}
-/*
-func (c *HomeController) SignInReply() {
-		res := struct {
-			User     string `json:"user"`
-			HasError bool   `json:"haserror"`
-			Error    string `json:"error"`
-		}{
-			"dummyuser",
-			true,
-			"Error",
-		}
-		c.Data["json"] = &res
-		c.ServeJSON()
-}
-*/
-
 //SignUpQuery handle user creation and password reset (post)
 //
 //   req: POST /signup {"user": "your username"}
@@ -126,27 +106,38 @@ func (c *HomeController) SignUpQuery() {
 	}
 
 	mail := user + "@cgi.com"
-	newPassword := CreateRandomPassword()
 
 	db := GetDB()
 	userData := models.UserData{}
-	userData.SHAPassword = ConvertToSHA1(newPassword)
+	newPassword := CreateRandomPassword()
 
-	beego.Info("random: ", newPassword, ", toSHA1: ", userData.SHAPassword)
+	dbErr := db.Update(func(tx *bolt.Tx) error {
 
-	if v, err := json.Marshal(userData); err == nil {
-		dbErr := db.Update(func(tx *bolt.Tx) error {
-			b := tx.Bucket([]byte("users"))
-			return b.Put([]byte(mail), v)
-		})
-		if dbErr != nil {
-			c.Ctx.Output.SetStatus(501)
-			c.Ctx.Output.Body([]byte(err.Error()))
-			return
+		users := tx.Bucket([]byte("users"))
+		existingData := users.Get([]byte(mail))
+		if existingData != nil {
+			if err := json.Unmarshal(existingData, &userData); err != nil {
+				return err
+			}
+		} else {
+			players := tx.Bucket([]byte("players"))
+			userData.PlayerID = CreatePlayer(players, mail)
 		}
-	} else {
-		c.Ctx.Output.SetStatus(502)
-		c.Ctx.Output.Body([]byte(err.Error()))
+
+		beego.Info("random: ", newPassword, ", toSHA1: ", userData.SHAPassword)
+		userData.SHAPassword = ConvertToSHA1(newPassword)
+
+		//put user data in all cases to at least reset password
+		updatedUser, err := json.Marshal(userData)
+		if err != nil {
+			return err
+		}
+		return users.Put([]byte(mail), updatedUser)
+	})
+
+	if dbErr != nil {
+		c.Ctx.Output.SetStatus(501)
+		c.Ctx.Output.Body([]byte(dbErr.Error()))
 		return
 	}
 

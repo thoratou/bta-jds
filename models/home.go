@@ -10,8 +10,3 @@ type SignIn struct {
 type SignUp struct {
 	User string `json:"user"`
 }
-
-//UserData user data in DB
-type UserData struct {
-	SHAPassword []byte `json:"shapassword"`
-}

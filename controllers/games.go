@@ -1,29 +1,68 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
+	"encoding/json"
+
+	"fmt"
+
 	"github.com/boltdb/bolt"
 	"github.com/thoratou/cgi-jds/models"
 )
 
-//GameController main page for game register
-type GameController struct {
-	beego.Controller
+//CreateTeamGame create a team game with a minimum number of players
+func CreateTeamGame(bucket *bolt.Bucket, name string, minPlayers int, description []string) {
+	newGameID, _ := bucket.NextSequence()
+	newGame := &models.Game{
+		Name:        name,
+		TeamGame:    true,
+		MinPlayers:  minPlayers,
+		Description: description,
+	}
+
+	SerializeGameToDB(bucket, newGameID, newGame)
 }
 
-//Get handle get request
-func (c *GameController) Get() {
-	db := GetDB()
-	var data *models.Games
-	db.View(func(tx *bolt.Tx) error {
-		b := tx.Bucket([]byte("games"))
-		dbData, err := DeserializeAllGamesFromDB(b)
-		data = dbData
+//CreateIndividualGame create a individual game
+func CreateIndividualGame(bucket *bolt.Bucket, name string, description []string) {
+	newGame := &models.Game{
+		Name:        name,
+		TeamGame:    false,
+		MinPlayers:  0,
+		Description: description,
+	}
+
+	newGameID, _ := bucket.NextSequence()
+	SerializeGameToDB(bucket, newGameID, newGame)
+}
+
+//SerializeGameToDB serialize game data to database
+func SerializeGameToDB(bucket *bolt.Bucket, id uint64, newGame *models.Game) error {
+	idStr := fmt.Sprintf("%03d", id)
+	newGame.ID = idStr
+	if v, err := json.Marshal(newGame); err == nil {
+		bucket.Put([]byte(idStr), v)
+	} else {
+		return err
+	}
+	return nil
+}
+
+//DeserializeAllGamesFromDB deserialize all games data from database
+func DeserializeAllGamesFromDB(bucket *bolt.Bucket) (*models.Games, error) {
+	data := &models.Games{
+		Map: make(map[string]*models.Game),
+	}
+	err := bucket.ForEach(func(k, v []byte) error {
+
+		idStr := string(k)
+
+		game := &models.Game{}
+		err := json.Unmarshal(v, game)
+		if err == nil {
+			data.Map[idStr] = game
+		}
 		return err
 	})
 
-	//res, _ := SerializeAllGamesToJSON(data)
-	beego.Info(data)
-	c.Data["json"] = data
-	c.ServeJSON()
+	return data, err
 }
