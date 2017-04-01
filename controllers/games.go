@@ -17,9 +17,10 @@ func CreateTeamGame(bucket *bolt.Bucket, name string, minPlayers int, descriptio
 		TeamGame:    true,
 		MinPlayers:  minPlayers,
 		Description: description,
+		Players:     []models.PlayerData{},
 	}
 
-	SerializeGameToDB(bucket, newGameID, newGame)
+	SerializeNewGameToDB(bucket, newGameID, newGame)
 }
 
 //CreateIndividualGame create a individual game
@@ -29,18 +30,29 @@ func CreateIndividualGame(bucket *bolt.Bucket, name string, description []string
 		TeamGame:    false,
 		MinPlayers:  0,
 		Description: description,
+		Players:     []models.PlayerData{},
 	}
 
 	newGameID, _ := bucket.NextSequence()
-	SerializeGameToDB(bucket, newGameID, newGame)
+	SerializeNewGameToDB(bucket, newGameID, newGame)
 }
 
-//SerializeGameToDB serialize game data to database
-func SerializeGameToDB(bucket *bolt.Bucket, id uint64, newGame *models.Game) error {
+//SerializeNewGameToDB serialize game data to database
+func SerializeNewGameToDB(bucket *bolt.Bucket, id uint64, newGame *models.Game) error {
 	idStr := fmt.Sprintf("%03d", id)
 	newGame.ID = idStr
 	if v, err := json.Marshal(newGame); err == nil {
 		bucket.Put([]byte(idStr), v)
+	} else {
+		return err
+	}
+	return nil
+}
+
+//SerializeGameToDB serialize game data to database
+func SerializeGameToDB(bucket *bolt.Bucket, game *models.Game) error {
+	if v, err := json.Marshal(game); err == nil {
+		bucket.Put([]byte(game.ID), v)
 	} else {
 		return err
 	}
@@ -64,5 +76,14 @@ func DeserializeAllGamesFromDB(bucket *bolt.Bucket) (*models.Games, error) {
 		return err
 	})
 
+	return data, err
+}
+
+//DeserializeGameFromDB deserialize game data  with game ID from database
+func DeserializeGameFromDB(bucket *bolt.Bucket, gameID string) (*models.Game, error) {
+	data := &models.Game{}
+	v := bucket.Get([]byte(gameID))
+
+	err := json.Unmarshal(v, data)
 	return data, err
 }

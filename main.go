@@ -110,7 +110,9 @@ func main() {
 	beego.Router("/signin", &controllers.HomeController{}, "post:SignInQuery")
 	beego.Router("/signup", &controllers.HomeController{}, "post:SignUpQuery")
 
-	beego.Router("/games/*", &controllers.DataController{})
+	beego.Router("/games/*", &controllers.DataController{}, "get:Get")
+	beego.Router("/addPlayerToGame", &controllers.DataController{}, "post:AddPlayerToGame")
+	beego.Router("/removePlayerFromGame", &controllers.DataController{}, "post:RemovePlayerFromGame")
 
 	beego.Run()
 }

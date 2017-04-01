@@ -28,6 +28,38 @@
                 <div data-ng-repeat="descline in game.description">
                   <p>{{descline}}</p>
                 </div>
+                <div ng-if="!game.teamgame && !isPlayerInGame(gamedata.currentplayerid, game)">
+                  <div class="btn-group" role="group" aria-label="add-player">
+                    <button type="submit" class="login-button" style="float: left;" ng-click='addPlayerToGame(gamedata.currentplayerid, game)'><b>S'ajouter à l'épreuve</b></button>
+                  </div>
+                </div>
+                <div ng-if="!game.teamgame && isPlayerInGame(gamedata.currentplayerid, game)">
+                  <div class="btn-group" role="group" aria-label="add-player">
+                    <button type="submit" class="login-button" style="float: left;" ng-click='removePlayerFromGame(gamedata.currentplayerid, game)'><b>Se retirer l'épreuve</b></button>
+                  </div>
+                </div>
+              </div>
+              <div ng-if="!game.teamgame">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Mail</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Comments</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-ng-repeat="playerdata in game.players">
+                      <th scope="row">{{$index + 1}}</th>
+                      <td>{{getFirstName(playerdata.id)}}</td>
+                      <td>{{getLastName(playerdata.id)}}</td>
+                      <td>{{getMail(playerdata.id)}}</td>
+                      <td>{{playerdata.comment}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

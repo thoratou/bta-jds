@@ -14,14 +14,15 @@ func CreatePlayer(bucket *bolt.Bucket, mail string) string {
 	newPlayer := &models.Player{
 		FirstName: "",
 		LastName:  "",
+		Mail:      mail,
 	}
 
-	idStr, _ := SerializePlayerToDB(bucket, newPlayerID, newPlayer)
+	idStr, _ := SerializeNewPlayerToDB(bucket, newPlayerID, newPlayer)
 	return idStr
 }
 
-//SerializePlayerToDB serialize player data to database
-func SerializePlayerToDB(bucket *bolt.Bucket, id uint64, newPlayer *models.Player) (string, error) {
+//SerializeNewPlayerToDB serialize player data to database
+func SerializeNewPlayerToDB(bucket *bolt.Bucket, id uint64, newPlayer *models.Player) (string, error) {
 	idStr := fmt.Sprintf("%03d", id)
 	newPlayer.ID = idStr
 	if v, err := json.Marshal(newPlayer); err == nil {

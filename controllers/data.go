@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"encoding/json"
+
 	"github.com/astaxie/beego"
 	"github.com/boltdb/bolt"
 	"github.com/thoratou/cgi-jds/models"
@@ -17,6 +19,12 @@ type Data struct {
 //DataController main page for game register
 type DataController struct {
 	beego.Controller
+}
+
+//AddPlayerToGameParams paramaters from player addition to game query
+type AddPlayerToGameParams struct {
+	PlayerID string `json:"playerid"`
+	GameID   string `json:"gameid"`
 }
 
 //Get handle get request
@@ -61,4 +69,73 @@ func (c *DataController) Get() {
 	beego.Info(data)
 	c.Data["json"] = data
 	c.ServeJSON()
+}
+
+//AddPlayerToGame add a player to game from both IDs
+func (c *DataController) AddPlayerToGame() {
+	params := AddPlayerToGameParams{}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &params); err != nil {
+		c.Ctx.Output.SetStatus(500)
+		return
+	}
+
+	db := GetDB()
+	err := db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("games"))
+		game, err := DeserializeGameFromDB(b, params.GameID)
+		if err == nil {
+			if !models.PlayerIDListContains(game.Players, params.PlayerID) {
+				game.Players = append(game.Players,
+					models.PlayerData{
+						ID:      params.PlayerID,
+						Comment: "",
+					})
+				err = SerializeGameToDB(b, game)
+			}
+		}
+		return err
+	})
+
+	if err != nil {
+		c.Ctx.Output.SetStatus(501)
+		c.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	c.Ctx.Output.SetStatus(200)
+
+}
+
+//RemovePlayerFromGame remove a player from game from both IDs
+func (c *DataController) RemovePlayerFromGame() {
+	params := AddPlayerToGameParams{}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &params); err != nil {
+		c.Ctx.Output.SetStatus(500)
+		return
+	}
+
+	db := GetDB()
+	err := db.Update(func(tx *bolt.Tx) error {
+		b := tx.Bucket([]byte("games"))
+		game, err := DeserializeGameFromDB(b, params.GameID)
+		if err == nil {
+			for i, player := range game.Players {
+				if player.ID == params.PlayerID {
+					game.Players = append(game.Players[:i], game.Players[i+1:]...)
+					break
+				}
+			}
+			err = SerializeGameToDB(b, game)
+		}
+		return err
+	})
+
+	if err != nil {
+		c.Ctx.Output.SetStatus(501)
+		c.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	c.Ctx.Output.SetStatus(200)
+
 }
