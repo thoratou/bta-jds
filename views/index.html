@@ -30,7 +30,7 @@
                 </div>
                 <div ng-if="!game.teamgame && !isPlayerInGame(gamedata.currentplayerid, game)">
                   <div class="btn-group" role="group" aria-label="add-player">
-                    <button type="submit" class="btn btn-success" style="float: left;" ng-click='addPlayerToGame(gamedata.currentplayerid, game)'><b>S'ajouter à l'épreuve</b></button>
+                    <button type="submit" class="btn btn-success" style="float: left;" ng-click='addPlayerToGame(gamedata.currentplayerid, game)'><b>Participer à l'épreuve</b></button>
                   </div>
                 </div>
                 <div ng-if="!game.teamgame && isPlayerInGame(gamedata.currentplayerid, game)">
@@ -42,6 +42,7 @@
                         <button class="btn btn-primary" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
                       </span>
                     </div>
+                    <p></p>
                     <button type="submit" class="btn btn-warning" style="float: left;" ng-click='removePlayerFromGame(gamedata.currentplayerid, game)'><b>Se retirer l'épreuve</b></button>
                   </div>
                 </div>
@@ -60,9 +61,9 @@
                   <tbody>
                     <tr data-ng-repeat="playerdata in game.players">
                       <th scope="row">{{$index + 1}}</th>
+                      <td>{{getMail(playerdata.id)}}</td>
                       <td>{{getFirstName(playerdata.id)}}</td>
                       <td>{{getLastName(playerdata.id)}}</td>
-                      <td>{{getMail(playerdata.id)}}</td>
                       <td>{{playerdata.comment}}</td>
                     </tr>
                   </tbody>
