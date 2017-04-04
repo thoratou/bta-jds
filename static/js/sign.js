@@ -12,7 +12,7 @@ function SignCtrl($scope, $http, $rootScope) {
   };
 
   var refresh = function() {
-    return $http.get('/').
+    return $http.get('/?rnd='+new Date().getTime()).
       success(function() {
 
       }).error(logError);
@@ -23,14 +23,14 @@ function SignCtrl($scope, $http, $rootScope) {
     console.log('trying to sign in: '+$scope.user+','+$scope.password);
     $scope.errormessage = "";
 
-    $http.post('/signin', {user: $scope.user, password: $scope.password}).
+    $http.post('/signin?rnd='+new Date().getTime(), {user: $scope.user, password: $scope.password}).
       success(function() {
           $rootScope.loggedin = true;
           $rootScope.mail = $scope.user+"@cgi.com";
           
           var mailURI = encodeURIComponent($rootScope.mail).replace(/\./g, '&middot;')
           console.log('mailURI: '+mailURI);
-          $http.get('/games/'+$rootScope.mail).
+          $http.get('/games/'+$rootScope.mail+'?rnd='+new Date().getTime()).
           success(function(data) {
             console.log('sign in process completed');
             $rootScope.gamedata = data;
@@ -61,7 +61,7 @@ function SignCtrl($scope, $http, $rootScope) {
     console.log('trying to sign up: '+$scope.user);
     $scope.errormessage = "";
 
-    $http.post('/signup', {user: $scope.user}).
+    $http.post('/signup?rnd='+new Date().getTime(), {user: $scope.user}).
       success(function() {
       }).error(function(error, status) {
         switch(status) {

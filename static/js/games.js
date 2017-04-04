@@ -9,7 +9,7 @@ function GameCtrl($scope, $http, $rootScope) {
 
   var refresh = function() {
     if($rootScope.loggedin){
-      $http.get('/games/'+$rootScope.mail).
+      $http.get('/games/'+$rootScope.mail+'?rnd='+new Date().getTime()).
         success(function(data) {
           console.log($rootScope.gamedata);
           $rootScope.gamedata = data;
@@ -38,21 +38,21 @@ function GameCtrl($scope, $http, $rootScope) {
   }
 
   $scope.addPlayerToGame = function(id, game) {
-    $http.post('/addPlayerToGame', {playerid: id, gameid: game.id}).
+    $http.post('/addPlayerToGame?rnd='+new Date().getTime(), {playerid: id, gameid: game.id}).
       success(function() {
         refresh()
       }).error(logError);
   }
 
   $scope.removePlayerFromGame = function(id, game) {
-    $http.post('/removePlayerFromGame', {playerid: id, gameid: game.id}).
+    $http.post('/removePlayerFromGame?rnd='+new Date().getTime(), {playerid: id, gameid: game.id}).
       success(function() {
         refresh()
       }).error(logError);
   }
 
   $scope.submitPlayerGameComment = function(id, game) {
-    $http.post('/submitPlayerGameComment', {playerid: id, gameid: game.id, comment: game.players[id].comment}).
+    $http.post('/submitPlayerGameComment?rnd='+new Date().getTime(), {playerid: id, gameid: game.id, comment: game.players[id].comment}).
       success(function() {
         refresh()
       }).error(logError);
