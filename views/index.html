@@ -28,56 +28,9 @@
                 <div data-ng-repeat="descline in game.description">
                   <p>{{descline}}</p>
                 </div>
-                <div ng-if="!game.teamgame && !isPlayerInGame(gamedata.currentplayerid, game)">
-                  <div class="btn-group" role="group" aria-label="add-player">
-                    <button type="submit" class="btn btn-success" style="float: left;" ng-click='addPlayerToGame(gamedata.currentplayerid, game)'><b>Participer à l'épreuve</b></button>
-                  </div>
-                </div>
-                <div ng-if="!game.teamgame && isPlayerInGame(gamedata.currentplayerid, game)">
-                    <div class="input-group">
-                      <label for="user" class="sr-only">Comment</label>
-                      <input type="text" class="form-control" id="comment" name="comment" ng-model="game.players[gamedata.currentplayerid].comment">
-                      <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
-                      </span>
-                    </div>
-                    <p></p>
-                    <!-- button type="submit" class="btn btn-warning" style="float: left;" ng-click='removePlayerFromGame(gamedata.currentplayerid, game)'><b>Se retirer l'épreuve</b></button -->
-                    <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapse_game_remove_{{game.id}}">
-                      Se retirer l'épreuve
-                    </button>
-                    <div class="collapse" id="collapse_game_remove_{{game.id}}">
-                      <p></p>
-                      <div class="container">
-                        <p>Est-ce vous sûr(e) de vouloir abandonner l'épreuve ?</p>
-                        <button type="submit" class="btn btn-danger" ng-click='removePlayerFromGame(gamedata.currentplayerid, game)'><b>Oui</b></button>
-                        <button type="submit" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse_game_remove_{{game.id}}"><b>Non</b></button>
-                      </div>
-                    </div>
-                </div>
+                {{<template "base/individual_actions.html" .>}}
               </div>
-              <div ng-if="!game.teamgame">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Mail</th>
-                      <th>Prénom</th>
-                      <th>Nom</th>
-                      <th>Commentaire</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr data-ng-repeat="playerdata in game.players">
-                      <th scope="row">{{$index + 1}}</th>
-                      <td>{{getMail(playerdata.id)}}</td>
-                      <td>{{getFirstName(playerdata.id)}}</td>
-                      <td>{{getLastName(playerdata.id)}}</td>
-                      <td>{{playerdata.comment}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {{<template "base/individual_table.html" .>}}
             </div>
           </div>
         </div>
