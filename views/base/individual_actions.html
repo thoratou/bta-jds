@@ -6,7 +6,7 @@
 <div ng-if="!game.teamgame && isPlayerInGame(gamedata.currentplayerid, game)">
     <div class="input-group">
       <label for="user" class="sr-only">Comment</label>
-      <input type="text" class="form-control" id="comment" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).comment">
+      <input type="text" class="form-control" id="comment" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment">
       <span class="input-group-btn">
         <button class="btn btn-primary" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
       </span>

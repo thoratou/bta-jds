@@ -34,6 +34,8 @@ function SignCtrl($scope, $http, $rootScope) {
           success(function(data) {
             console.log('sign in process completed');
             $rootScope.gamedata = data;
+            initGameData($rootScope.gamedata);
+            console.log($rootScope.gamedata);
           }).error(logError);
 
       }).error(function(error, status) {

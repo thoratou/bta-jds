@@ -1,5 +1,20 @@
 SignCtrl.$inject = ['$scope', '$http', '$rootScope'];
 
+function initGameData(data) {
+  for(var gameid in data.games) {
+    var game = data.games[gameid]
+    var arrayLength = game.players.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if (game.players[i].id === data.currentplayerid) {
+        game.players[i].newComment = game.players[i].comment
+      }
+    }
+  }
+  for(var teamid in data.teams) {
+    data.teams[teamid].newName = data.teams[teamid].name;
+  }
+}
+
 function GameCtrl($scope, $http, $rootScope) {
   $rootScope.gamedata = {};
 
@@ -12,6 +27,7 @@ function GameCtrl($scope, $http, $rootScope) {
       $http.get('/games/'+$rootScope.mail+'?rnd='+new Date().getTime()).
         success(function(data) {
           $rootScope.gamedata = data;
+          initGameData($rootScope.gamedata);
           console.log($rootScope.gamedata);
         }).error(logError);
     }
@@ -70,7 +86,7 @@ function GameCtrl($scope, $http, $rootScope) {
   }
 
   $scope.submitPlayerGameComment = function(id, game) {
-    $http.post('/submitPlayerGameComment?rnd='+new Date().getTime(), {playerid: id, gameid: game.id, comment: $scope.getPlayerInGame(id, game).comment}).
+    $http.post('/submitPlayerGameComment?rnd='+new Date().getTime(), {playerid: id, gameid: game.id, comment: $scope.getPlayerInGame(id, game).newComment}).
       success(function() {
         refresh()
       }).error(logError);
