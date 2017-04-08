@@ -10,13 +10,13 @@ import (
 
 //CreatePlayer create a player
 func CreatePlayer(bucket *bolt.Bucket, mail string) string {
-	newPlayerID, _ := bucket.NextSequence()
 	newPlayer := &models.Player{
 		FirstName: "",
 		LastName:  "",
 		Mail:      mail,
 	}
 
+	newPlayerID, _ := bucket.NextSequence()
 	idStr, _ := SerializeNewPlayerToDB(bucket, newPlayerID, newPlayer)
 	return idStr
 }

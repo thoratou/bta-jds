@@ -11,8 +11,8 @@ function GameCtrl($scope, $http, $rootScope) {
     if($rootScope.loggedin){
       $http.get('/games/'+$rootScope.mail+'?rnd='+new Date().getTime()).
         success(function(data) {
-          console.log($rootScope.gamedata);
           $rootScope.gamedata = data;
+          console.log($rootScope.gamedata);
         }).error(logError);
     }
   };
@@ -42,13 +42,17 @@ function GameCtrl($scope, $http, $rootScope) {
     return false;
   }
 
-    $scope.getPlayerInGame = function(id, game) {
+  $scope.getPlayerInGame = function(id, game) {
     var arrayLength = game.players.length;
     for (var i = 0; i < arrayLength; i++) {
       if (game.players[i].id === id)
       return game.players[i];
     }
     return null;
+  }
+
+  $scope.getTeam = function(teamid) {
+    return $rootScope.gamedata.teams[teamid];
   }
 
   $scope.addPlayerToGame = function(id, game) {
@@ -67,6 +71,35 @@ function GameCtrl($scope, $http, $rootScope) {
 
   $scope.submitPlayerGameComment = function(id, game) {
     $http.post('/submitPlayerGameComment?rnd='+new Date().getTime(), {playerid: id, gameid: game.id, comment: $scope.getPlayerInGame(id, game).comment}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
+
+  $scope.addTeamToGame = function(teamname, managerid, game) {
+    if(teamname == undefined || teamname === "") {
+      //todo error handling
+      return;
+    }
+    $http.post('/addTeamToGame?rnd='+new Date().getTime(), {teamname: teamname, managerid: managerid, gameid: game.id}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
+
+  $scope.removeTeamFromGame = function(teamid, managerid, game) {
+    $http.post('/removeTeamFromGame?rnd='+new Date().getTime(), {teamid: teamid, managerid: managerid, gameid: game.id}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
+
+    $scope.changeTeamName = function(teamid, teamname, managerid) {
+    if(teamname == undefined || teamname === "") {
+      //todo error handling
+      return;
+    }
+    $http.post('/changeTeamName?rnd='+new Date().getTime(), {teamid: teamid, teamname: teamname, managerid: managerid}).
       success(function() {
         refresh()
       }).error(logError);

@@ -11,15 +11,16 @@ import (
 
 //CreateTeamGame create a team game with a minimum number of players
 func CreateTeamGame(bucket *bolt.Bucket, name string, minPlayers int, description []string) {
-	newGameID, _ := bucket.NextSequence()
 	newGame := &models.Game{
 		Name:        name,
 		TeamGame:    true,
 		MinPlayers:  minPlayers,
 		Description: description,
 		Players:     []*models.PlayerData{},
+		Teams:       []string{},
 	}
 
+	newGameID, _ := bucket.NextSequence()
 	SerializeNewGameToDB(bucket, newGameID, newGame)
 }
 
@@ -31,6 +32,7 @@ func CreateIndividualGame(bucket *bolt.Bucket, name string, description []string
 		MinPlayers:  0,
 		Description: description,
 		Players:     []*models.PlayerData{},
+		Teams:       []string{},
 	}
 
 	newGameID, _ := bucket.NextSequence()

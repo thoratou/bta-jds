@@ -6,6 +6,8 @@ type Team struct {
 	Name      string   `json:"name"`
 	ManagerID string   `json:"managerid"`
 	Players   []string `json:"players"`
+	GameID    string   `json:"gameid"`
+	Removed   bool     `json:"removed"`
 }
 
 //Teams team list

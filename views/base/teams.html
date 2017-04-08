@@ -1,0 +1,38 @@
+<div ng-if="game.teamgame">
+  <div class="panel-group" id="accordion_team_{{game.id}}" role="tablist" aria-multiselectable="true">
+    <div data-ng-repeat="teamid in game.teams" class="panel panel-default">
+      <div class="panel-heading" role="tab" id="team_{{teamid}}">
+        <h4 class="panel-title">
+          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_team_{{game.id}}" href="#collapse_team_{{teamid}}" aria-expanded="false" aria-controls="collapse_team_{{teamid}}">
+            {{getTeam(teamid).name}}
+          </a>
+        </h4>
+      </div>
+      <div id="collapse_team_{{teamid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="team_{{teamid}}">
+        <div class="panel-body">
+          <p>Manager: {{getMail(getTeam(teamid).managerid)}}</p>
+          {{<template "base/team_actions.html" .>}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="input-group">
+      <label for="user" class="sr-only">Team</label>
+      <input type="text" class="form-control" id="team" name="team" ng-model="game.newteam">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse_team_add_{{game.id}}">Créer une nouvelle équipe</button>
+      </span>
+    </div>
+    <div class="collapse" id="collapse_team_add_{{game.id}}">
+      <p></p>
+      <div class="container">
+        <p>Est-ce vous sûr(e) de vouloir créer une nouvelle équipe ?</p>
+        <p>N'oubliez pas de régarder s'il y a des équipes sur lesquelles vous pouvez vous ajouter.</p>
+        <button type="submit" class="btn btn-primary" ng-click='addTeamToGame(game.newteam, gamedata.currentplayerid, game)'><b>Oui</b></button>
+        <button type="submit" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse_team_add_{{game.id}}"><b>Non</b></button>
+      </div>
+    </div>
+  </div>
+</div>
