@@ -17,11 +17,13 @@
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div data-ng-repeat="game in gamedata.games" class="panel panel-default">
             <div class="panel-heading" role="tab" id="game_{{game.id}}">
-              <h4 class="panel-title">
-                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_game_{{game.id}}" aria-expanded="false" aria-controls="collapse_game_{{game.id}}">
+              <div class="panel-title">
+                <a class="h4 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_game_{{game.id}}" aria-expanded="false" aria-controls="collapse_game_{{game.id}}">
                   {{game.name}}
                 </a>
-              </h4>
+                <span ng-if="game.teamgame" class="p" style="float: right;"><i>Equipes : {{game.teams.length}}</i></span>
+                <span ng-if="!game.teamgame" class="p" style="float: right;"><i>Participants : {{game.players.length}}</i></span>
+              </div>
             </div>
             <div id="collapse_game_{{game.id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="game_{{game.id}}">
               <div class="panel-body">

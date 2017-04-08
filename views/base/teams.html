@@ -2,11 +2,12 @@
   <div class="panel-group" id="accordion_team_{{game.id}}" role="tablist" aria-multiselectable="true">
     <div data-ng-repeat="teamid in game.teams" class="panel panel-default">
       <div class="panel-heading" role="tab" id="team_{{teamid}}">
-        <h4 class="panel-title">
-          <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_team_{{game.id}}" href="#collapse_team_{{teamid}}" aria-expanded="false" aria-controls="collapse_team_{{teamid}}">
+        <div class="panel-title">
+          <a class=" h4 collapsed" role="button" data-toggle="collapse" data-parent="#accordion_team_{{game.id}}" href="#collapse_team_{{teamid}}" aria-expanded="false" aria-controls="collapse_team_{{teamid}}">
             {{getTeam(teamid).name}}
           </a>
-        </h4>
+          <span class="p" style="float: right;"><i>Participants : {{getTeam(teamid).players.length}}</i></span>
+        </div>
       </div>
       <div id="collapse_team_{{teamid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="team_{{teamid}}">
         <div class="panel-body">
