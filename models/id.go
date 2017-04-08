@@ -12,7 +12,7 @@ func IDListContains(slice []string, item string) bool {
 }
 
 //PlayerIDListContains utilities for ID list
-func PlayerIDListContains(slice []PlayerData, item string) bool {
+func PlayerIDListContains(slice []*PlayerData, item string) bool {
 	set := make(map[string]struct{}, len(slice))
 	for _, s := range slice {
 		set[s.ID] = struct{}{}

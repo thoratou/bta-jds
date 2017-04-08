@@ -84,11 +84,12 @@ func (c *DataController) AddPlayerToGame() {
 		b := tx.Bucket([]byte("games"))
 		game, err := DeserializeGameFromDB(b, params.GameID)
 		if err == nil {
-			if _, ok := game.Players[params.PlayerID]; !ok {
-				game.Players[params.PlayerID] = &models.PlayerData{
-					ID:      params.PlayerID,
-					Comment: "",
-				}
+			if !models.PlayerIDListContains(game.Players, params.PlayerID) {
+				game.Players = append(game.Players,
+					&models.PlayerData{
+						ID:      params.PlayerID,
+						Comment: "",
+					})
 				err = SerializeGameToDB(b, game)
 			}
 		}
@@ -124,7 +125,12 @@ func (c *DataController) RemovePlayerFromGame() {
 		b := tx.Bucket([]byte("games"))
 		game, err := DeserializeGameFromDB(b, params.GameID)
 		if err == nil {
-			delete(game.Players, params.PlayerID)
+			for i, player := range game.Players {
+				if player.ID == params.PlayerID {
+					game.Players = append(game.Players[:i], game.Players[i+1:]...)
+					break
+				}
+			}
 			err = SerializeGameToDB(b, game)
 		}
 		return err
@@ -160,7 +166,12 @@ func (c *DataController) SubmitPlayerGameComment() {
 		b := tx.Bucket([]byte("games"))
 		game, err := DeserializeGameFromDB(b, params.GameID)
 		if err == nil {
-			game.Players[params.PlayerID].Comment = params.Comment
+			for _, player := range game.Players {
+				if player.ID == params.PlayerID {
+					player.Comment = params.Comment
+					break
+				}
+			}
 			err = SerializeGameToDB(b, game)
 		}
 		return err

@@ -17,7 +17,7 @@ func CreateTeamGame(bucket *bolt.Bucket, name string, minPlayers int, descriptio
 		TeamGame:    true,
 		MinPlayers:  minPlayers,
 		Description: description,
-		Players:     make(map[string]*models.PlayerData),
+		Players:     []*models.PlayerData{},
 	}
 
 	SerializeNewGameToDB(bucket, newGameID, newGame)
@@ -30,7 +30,7 @@ func CreateIndividualGame(bucket *bolt.Bucket, name string, description []string
 		TeamGame:    false,
 		MinPlayers:  0,
 		Description: description,
-		Players:     make(map[string]*models.PlayerData),
+		Players:     []*models.PlayerData{},
 	}
 
 	newGameID, _ := bucket.NextSequence()

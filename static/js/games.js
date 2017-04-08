@@ -34,7 +34,21 @@ function GameCtrl($scope, $http, $rootScope) {
   }
 
   $scope.isPlayerInGame = function(id, game) {
-    return game.players.hasOwnProperty(id);
+    var arrayLength = game.players.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if (game.players[i].id === id)
+      return true;
+    }
+    return false;
+  }
+
+    $scope.getPlayerInGame = function(id, game) {
+    var arrayLength = game.players.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if (game.players[i].id === id)
+      return game.players[i];
+    }
+    return null;
   }
 
   $scope.addPlayerToGame = function(id, game) {
@@ -52,7 +66,7 @@ function GameCtrl($scope, $http, $rootScope) {
   }
 
   $scope.submitPlayerGameComment = function(id, game) {
-    $http.post('/submitPlayerGameComment?rnd='+new Date().getTime(), {playerid: id, gameid: game.id, comment: game.players[id].comment}).
+    $http.post('/submitPlayerGameComment?rnd='+new Date().getTime(), {playerid: id, gameid: game.id, comment: $scope.getPlayerInGame(id, game).comment}).
       success(function() {
         refresh()
       }).error(logError);
