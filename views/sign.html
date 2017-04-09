@@ -21,8 +21,13 @@
 
             <div ng-if="errormessage">
               <p></p>
-              <p style="color:#a70036">{{errormessage}}</p>
+              <p class="text-custom">{{errormessage}}</p>
             </div>
+            <div ng-if="successmessage">
+              <p></p>
+              <p class="text-success-custom">{{successmessage}}</p>
+            </div>
+
             <p></p>
             <p></p>
             <div align="justify">

@@ -4,6 +4,7 @@ function SignCtrl($scope, $http, $rootScope) {
   $scope.user = "";
   $scope.password = "";
   $scope.errormessage = "";
+  $scope.successmessage = "";
   $rootScope.loggedin = false;
   $rootScope.mail = "";
 
@@ -22,6 +23,7 @@ function SignCtrl($scope, $http, $rootScope) {
     $scope.user = $scope.user.toLowerCase();
     console.log('trying to sign in: '+$scope.user+','+$scope.password);
     $scope.errormessage = "";
+    $scope.successmessage = "";
 
     $http.post('/signin?rnd='+new Date().getTime(), {user: $scope.user, password: $scope.password}).
       success(function() {
@@ -62,9 +64,11 @@ function SignCtrl($scope, $http, $rootScope) {
     $scope.user = $scope.user.toLowerCase();
     console.log('trying to sign up: '+$scope.user);
     $scope.errormessage = "";
+    $scope.successmessage = "";
 
     $http.post('/signup?rnd='+new Date().getTime(), {user: $scope.user}).
       success(function() {
+          $scope.successmessage = "Vous recevrez dans quelques instants un e-mail avec votre nouveau mot de passe";
       }).error(function(error, status) {
         switch(status) {
           case 403:

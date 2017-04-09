@@ -2,6 +2,18 @@
   border-color: #a70036;
 }
 
+.background-custom {
+  background-color: #a70036;
+}
+
+.text-custom {
+  color: #a70036;
+}
+
+.text-success-custom {
+  color: #0fb611;
+}
+
 .fill-custom {
   color: #fff;
   background-color: #a70036;
