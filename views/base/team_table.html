@@ -1,0 +1,22 @@
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Mail</th>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Commentaire</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="playerdata in getTeam(teamid).players">
+        <th scope="row">{{$index + 1}}</th>
+        <td>{{getMail(playerdata.id)}}</td>
+        <td>{{getFirstName(playerdata.id)}}</td>
+        <td>{{getLastName(playerdata.id)}}</td>
+        <td>{{playerdata.comment}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

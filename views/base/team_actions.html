@@ -1,22 +1,26 @@
-<div ng-if="getTeam(teamid).managerid === gamedata.currentplayerid">
-
-  <div class="input-group">
-    <label for="user" class="sr-only">Team</label>
-    <input type="text" class="form-control" id="team" name="team" ng-model="getTeam(teamid).newName">
-    <span class="input-group-btn">
-      <button class="btn btn-primary" type="button" ng-click='changeTeamName(teamid, getTeam(teamid).newName, gamedata.currentplayerid)'>Changer le nom de l'équipe</button>
-    </span>
+<div ng-if="!isPlayerInTeam(gamedata.currentplayerid, teamid)">
+  <div class="btn-group" role="group" aria-label="add-player">
+    <button type="submit" class="btn btn-success" style="float: left;" ng-click='addPlayerToTeam(gamedata.currentplayerid, teamid)'><b>S'ajouter dans l'équipe</b></button>
   </div>
-  <p></p>
-  <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#collapse_team_remove_{{teamid}}">
-    Supprimer l'équipe
-  </button>
-  <div class="collapse" id="collapse_team_remove_{{teamid}}">
-    <p></p>
-    <div class="container">
-      <p>Est-ce vous sûr(e) de vouloir supprimer l'équipe</p>
-      <button type="submit" class="btn btn-danger" ng-click='removeTeamFromGame(teamid, gamedata.currentplayerid, game)'><b>Oui</b></button>
-      <button type="submit" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse_team_remove_{{teamid}}"><b>Non</b></button>
+</div>
+<div ng-if="isPlayerInTeam(gamedata.currentplayerid, teamid)">
+    <div class="input-group">
+      <label for="user" class="sr-only">Comment</label>
+      <input type="text" class="form-control" id="comment" name="comment" ng-model="getPlayerInTeam(gamedata.currentplayerid, teamid).newComment">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="button" ng-click='submitPlayerTeamComment(gamedata.currentplayerid, teamid)'>Soumettre le commentaire</button>
+      </span>
     </div>
-  </div>
+    <p></p>
+    <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapse_teamgame_remove_{{teamid}}">
+      Se retirer de l'équipe
+    </button>
+    <div class="collapse" id="collapse_teamgame_remove_{{teamid}}">
+      <p></p>
+      <div class="container">
+        <p>Est-ce vous sûr(e) de vouloir quitter l'équipe ?</p>
+        <button type="submit" class="btn btn-danger" ng-click='removePlayerFromTeam(gamedata.currentplayerid, teamid)'><b>Oui</b></button>
+        <button type="submit" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse_teamgame_remove_{{teamid}}"><b>Non</b></button>
+      </div>
+    </div>
 </div>

@@ -13,7 +13,7 @@ func CreateTeam(bucket *bolt.Bucket, name string, managerID string, gameID strin
 	newTeam := &models.Team{
 		Name:      name,
 		ManagerID: managerID,
-		Players:   []string{},
+		Players:   []*models.PlayerData{},
 		GameID:    gameID,
 		Removed:   false,
 	}

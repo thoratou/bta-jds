@@ -11,7 +11,14 @@ function initGameData(data) {
     }
   }
   for(var teamid in data.teams) {
-    data.teams[teamid].newName = data.teams[teamid].name;
+    var team = data.teams[teamid]
+    team.newName = team.name;
+    var arrayLength = team.players.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if (team.players[i].id === data.currentplayerid) {
+        team.players[i].newComment = team.players[i].comment
+      }
+    }
   }
 }
 
@@ -71,6 +78,27 @@ function GameCtrl($scope, $http, $rootScope) {
     return $rootScope.gamedata.teams[teamid];
   }
 
+  $scope.isPlayerInTeam = function(id, teamid) {
+    var team = $scope.getTeam(teamid);
+    var arrayLength = team.players.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if (team.players[i].id === id)
+      return true;
+    }
+    return false;
+  }
+
+  $scope.getPlayerInTeam = function(id, teamid) {
+    var team = $scope.getTeam(teamid);
+    var arrayLength = team.players.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if (team.players[i].id === id)
+      return team.players[i];
+    }
+    return null;
+  }
+
+
   $scope.addPlayerToGame = function(id, game) {
     $http.post('/addPlayerToGame?rnd='+new Date().getTime(), {playerid: id, gameid: game.id}).
       success(function() {
@@ -110,7 +138,7 @@ function GameCtrl($scope, $http, $rootScope) {
       }).error(logError);
   }
 
-    $scope.changeTeamName = function(teamid, teamname, managerid) {
+  $scope.changeTeamName = function(teamid, teamname, managerid) {
     if(teamname == undefined || teamname === "") {
       //todo error handling
       return;
@@ -120,5 +148,27 @@ function GameCtrl($scope, $http, $rootScope) {
         refresh()
       }).error(logError);
   }
+
+  $scope.addPlayerToTeam = function(id, teamid) {
+    $http.post('/addPlayerToTeam?rnd='+new Date().getTime(), {playerid: id, teamid: teamid}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
+
+  $scope.removePlayerFromTeam = function(id, teamid) {
+    $http.post('/removePlayerFromTeam?rnd='+new Date().getTime(), {playerid: id, teamid: teamid}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
+
+  $scope.submitPlayerTeamComment = function(id, teamid) {
+    $http.post('/submitPlayerTeamComment?rnd='+new Date().getTime(), {playerid: id, teamid: teamid, comment: $scope.getPlayerInTeam(id, teamid).newComment}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
+
 
 }

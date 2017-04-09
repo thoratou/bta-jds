@@ -12,8 +12,10 @@
       <div id="collapse_team_{{teamid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="team_{{teamid}}">
         <div class="panel-body">
           <p>Manager: {{getMail(getTeam(teamid).managerid)}}</p>
+          {{<template "base/team_manager.html" .>}}
           {{<template "base/team_actions.html" .>}}
         </div>
+        {{<template "base/team_table.html" .>}}        
       </div>
     </div>
   </div>
