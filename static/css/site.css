@@ -1,3 +1,13 @@
+.border-custom {
+  border-color: #a70036;
+}
+
+.fill-custom {
+  color: #fff;
+  background-color: #a70036;
+  border-color: #a70036;
+}
+
 .panel-custom {
   border-color: #a70036;
 }
