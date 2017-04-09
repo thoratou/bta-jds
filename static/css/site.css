@@ -1,0 +1,18 @@
+.panel-custom {
+  border-color: #a70036;
+}
+.panel-custom > .panel-heading {
+  color: #fff;
+  background-color: #a70036;
+  border-color: #a70036;
+}
+.panel-custom > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #a70036;
+}
+.panel-custom > .panel-heading .badge {
+  color: #a70036;
+  background-color: #fff;
+}
+.panel-custom > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #a70036;
+}
