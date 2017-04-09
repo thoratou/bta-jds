@@ -16,3 +16,28 @@
 .panel-custom > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #a70036;
 }
+
+
+.btn-custom {
+  color: #fff;
+  background-color: #a70036;
+  border-color: #a70036;
+}
+.btn-custom:focus,
+.btn-custom.focus {
+  color: #fff;
+  background-color: #800028;
+  border-color: #800028;
+}
+.btn-custom:hover {
+  color: #fff;
+  background-color: #800028;
+  border-color: #800028;
+}
+.btn-custom:active,
+.btn-custom.active,
+.open > .dropdown-toggle.btn-custom {
+  color: #fff;
+  background-color: #800028;
+  border-color: #800028;
+}
