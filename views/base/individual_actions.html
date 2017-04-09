@@ -4,23 +4,22 @@
   </div>
 </div>
 <div ng-if="!game.teamgame && isPlayerInGame(gamedata.currentplayerid, game)">
-    <div class="input-group">
-      <label for="user" class="sr-only">Comment</label>
-      <input type="text" class="form-control" id="comment" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment">
-      <span class="input-group-btn">
-        <button class="btn btn-primary" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
-      </span>
-    </div>
+  <div class="input-group">
+    <input type="text" class="form-control" id="comment" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment"></input>
+    <span class="input-group-btn">
+      <button class="btn btn-primary" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
+    </span>
+  </div>
+  <p></p>
+  <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#collapse_game_remove_{{game.id}}">
+    Se retirer de l'épreuve
+  </button>
+  <div class="collapse" id="collapse_game_remove_{{game.id}}">
     <p></p>
-    <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapse_game_remove_{{game.id}}">
-      Se retirer de l'épreuve
-    </button>
-    <div class="collapse" id="collapse_game_remove_{{game.id}}">
-      <p></p>
-      <div class="container">
-        <p>Est-ce vous sûr(e) de vouloir abandonner l'épreuve ?</p>
-        <button type="submit" class="btn btn-danger" ng-click='removePlayerFromGame(gamedata.currentplayerid, game)'><b>Oui</b></button>
-        <button type="submit" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse_game_remove_{{game.id}}"><b>Non</b></button>
-      </div>
+    <div class="well">
+      <p>Est-ce vous sûr(e) de vouloir abandonner l'épreuve ?</p>
+      <button type="submit" class="btn btn-danger" ng-click='removePlayerFromGame(gamedata.currentplayerid, game)'><b>Oui</b></button>
+      <button type="submit" class="btn btn-secondary" data-toggle="collapse" data-target="#collapse_game_remove_{{game.id}}"><b>Non</b></button>
     </div>
+  </div>
 </div>
