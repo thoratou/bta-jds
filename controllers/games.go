@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/cgi-jds/models"
+	"github.com/thoratou/bta-jds/models"
 )
 
 //CreateTeamGame create a team game with a minimum number of players

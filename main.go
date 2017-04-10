@@ -7,7 +7,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/cgi-jds/controllers"
+	"github.com/thoratou/bta-jds/controllers"
 )
 
 func main() {

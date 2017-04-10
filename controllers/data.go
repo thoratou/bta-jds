@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/cgi-jds/models"
+	"github.com/thoratou/bta-jds/models"
 )
 
 //Data global data

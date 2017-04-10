@@ -7,7 +7,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/cgi-jds/models"
+	"github.com/thoratou/bta-jds/models"
 )
 
 //HomeController home pase with authentication
@@ -17,7 +17,7 @@ type HomeController struct {
 
 //Get handle get request
 func (c *HomeController) Get() {
-	c.Data["Website"] = "cgi-jds.com"
+	c.Data["Website"] = "bta-jds.com"
 	c.Data["Email"] = "thoratou@gmail.com"
 	c.TplName = "index.html"
 	c.Render()

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/cgi-jds/models"
+	"github.com/thoratou/bta-jds/models"
 )
 
 //CreateTeam create a team
