@@ -18,7 +18,8 @@
   <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#collapse_game_remove_{{game.id}}">
     Se retirer de l'épreuve
   </button>
-  <div class="collapse row" id="collapse_game_remove_{{game.id}}">
+  <div class="collapse" id="collapse_game_remove_{{game.id}}">
+    <p></p>
     <div class="well">
       <p>Est-ce vous sûr(e) de vouloir abandonner l'épreuve ?</p>
       <button type="submit" class="btn btn-danger" ng-click='removePlayerFromGame(gamedata.currentplayerid, game)'><b>Oui</b></button>
