@@ -4,18 +4,21 @@
   </div>
 </div>
 <div ng-if="isPlayerInTeam(gamedata.currentplayerid, teamid)">
-    <div class="input-group">
+    <div class="input-group hidden-xs">
       <input type="text" class="form-control" id="comment" name="comment" ng-model="getPlayerInTeam(gamedata.currentplayerid, teamid).newComment"></input>
       <span class="input-group-btn">
         <button class="btn btn-primary" type="button" ng-click='submitPlayerTeamComment(gamedata.currentplayerid, teamid)'>Soumettre le commentaire</button>
       </span>
     </div>
-    <p></p>
+    <div class="visible-xs">
+      <input type="text" class="form-control col-xs-12" id="comment" name="comment" ng-model="getPlayerInTeam(gamedata.currentplayerid, teamid).newComment"></input>
+      <button class="btn btn-primary col-xs-12" type="button" ng-click='submitPlayerTeamComment(gamedata.currentplayerid, teamid)'>Soumettre le commentaire</button>
+    </div>
+    <div>&nbsp;</div>
     <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#collapse_teamgame_remove_{{teamid}}">
       Se retirer de l'équipe
     </button>
     <div class="collapse" id="collapse_teamgame_remove_{{teamid}}">
-      <p></p>
       <div class="well">
         <p>Est-ce vous sûr(e) de vouloir quitter l'équipe ?</p>
         <button type="submit" class="btn btn-danger" ng-click='removePlayerFromTeam(gamedata.currentplayerid, teamid)'><b>Oui</b></button>
