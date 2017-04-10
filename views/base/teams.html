@@ -21,11 +21,15 @@
   </div>
 
   <div>
-    <div class="input-group">
+    <div class="input-group hidden-xs">
       <input type="text" class="form-control border-custom" id="team" name="team" ng-model="game.newteam"></input>
       <span class="input-group-btn">
         <button class="btn btn-custom" type="button" data-toggle="collapse" data-target="#collapse_team_add_{{game.id}}">Créer une nouvelle équipe</button>
       </span>
+    </div>
+    <div class="visible-xs">
+      <input type="text" class="form-control border-custom col-xs-12" id="team" name="team" ng-model="game.newteam"></input>
+      <button class="btn btn-custom col-xs-12" type="button" data-toggle="collapse" data-target="#collapse_team_add_{{game.id}}">Créer une nouvelle équipe</button>
     </div>
     <div class="collapse" id="collapse_team_add_{{game.id}}">
       <p></p>
