@@ -6,8 +6,9 @@
           <a class=" h4 collapsed" role="button" data-toggle="collapse" data-parent="#accordion_team_{{game.id}}" href="#collapse_team_{{teamid}}" aria-expanded="false" aria-controls="collapse_team_{{teamid}}">
             {{getTeam(teamid).name}}
           </a>
-          <span class="p" style="float: justify; font-size: 0.9em;"><i>&nbsp;&nbsp;&nbsp;Capitaine: {{getMail(getTeam(teamid).managerid)}}</i></span>
+          <span class="p hidden-xs" style="float: justify; font-size: 0.9em;"><i>&nbsp;&nbsp;&nbsp;Capitaine: {{getMail(getTeam(teamid).managerid)}}</i></span>
           <span class="p" style="float: right; font-size: 0.9em;"><i>Participants : {{getTeam(teamid).players.length}}</i></span>
+          <p class="visible-xs" style="float: justify; font-size: 0.9em;"><i>Capitaine: {{getMail(getTeam(teamid).managerid)}}</i></p>
         </div>
       </div>
       <div id="collapse_team_{{teamid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="team_{{teamid}}">

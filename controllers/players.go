@@ -33,6 +33,16 @@ func SerializeNewPlayerToDB(bucket *bolt.Bucket, id uint64, newPlayer *models.Pl
 	return idStr, nil
 }
 
+//SerializePlayerToDB serialize player data to database
+func SerializePlayerToDB(bucket *bolt.Bucket, player *models.Player) error {
+	if v, err := json.Marshal(player); err == nil {
+		bucket.Put([]byte(player.ID), v)
+	} else {
+		return err
+	}
+	return nil
+}
+
 //DeserializeAllPlayersFromDB deserialize all players data from database
 func DeserializeAllPlayersFromDB(bucket *bolt.Bucket) (*models.Players, error) {
 	data := &models.Players{
@@ -50,5 +60,14 @@ func DeserializeAllPlayersFromDB(bucket *bolt.Bucket) (*models.Players, error) {
 		return err
 	})
 
+	return data, err
+}
+
+//DeserializePlayerFromDB deserialize player data with player ID from database
+func DeserializePlayerFromDB(bucket *bolt.Bucket, playerID string) (*models.Player, error) {
+	data := &models.Player{}
+	v := bucket.Get([]byte(playerID))
+
+	err := json.Unmarshal(v, data)
 	return data, err
 }

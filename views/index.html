@@ -15,6 +15,35 @@
 
     <div class="container" ng-controller='GameCtrl'>
       <div ng-hide="isHidden()">
+        <div class="panel panel-custom">
+          <div class="panel-heading">
+            <b>Informations personnelles</b>
+          </div>
+          <div class="panel-body">
+            <div class="input-group hidden-xs">
+              <span class="input-group-addon fill-custom">Prénom : </span>
+              <input type="text" class="form-control border-custom" id="newFirstname" name="newFirstname" ng-model="gamedata.newFirstname"></input>
+              <span class="input-group-addon fill-custom">Nom : </span>
+              <input type="text" class="form-control border-custom" id="newLastname" name="newLastname" ng-model="gamedata.newLastname"></input>
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" ng-click='submitPlayerData(gamedata.currentplayerid, gamedata)'>Sauvegarder</button>
+              </span>
+            </div>
+            <div class="visible-xs">
+              <div class="input-group">
+                <span class="input-group-addon fill-custom">Prénom : </span>
+                <input type="text" class="form-control border-custom" id="newFirstname" name="newFirstname" ng-model="gamedata.newFirstname"></input>
+              </div>
+              <p></p>
+              <div class="input-group">
+                <span class="input-group-addon fill-custom">Nom : &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input type="text" class="form-control border-custom" id="newLastname" name="newLastname" ng-model="gamedata.newLastname"></input>
+              </div>
+              <p></p>
+              <button class="btn btn-primary" type="button" ng-click='submitPlayerData(gamedata.currentplayerid, gamedata)'>Sauvegarder</button>
+            </div>
+          </div>
+        </div>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div data-ng-repeat="game in gamedata.games" class="panel panel-game">
             <div class="panel-heading" role="tab" id="game_{{game.id}}">

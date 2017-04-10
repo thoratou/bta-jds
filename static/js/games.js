@@ -20,10 +20,15 @@ function initGameData(data) {
       }
     }
   }
+
+  data.newFirstname = data.players[data.currentplayerid].firstname;
+  data.newLastname = data.players[data.currentplayerid].lastname;
 }
 
 function GameCtrl($scope, $http, $rootScope) {
   $rootScope.gamedata = {};
+  $rootScope.firstname = "";
+  $rootScope.lastname = "";
 
   var logError = function(data, status) {
     console.log('code '+status+': '+data);
@@ -98,6 +103,12 @@ function GameCtrl($scope, $http, $rootScope) {
     return null;
   }
 
+  $scope.submitPlayerData = function(id, data) {
+    $http.post('/submitPlayerData?rnd='+new Date().getTime(), {playerid: id, firstname: data.newFirstname, lastname: data.newLastname}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
 
   $scope.addPlayerToGame = function(id, game) {
     $http.post('/addPlayerToGame?rnd='+new Date().getTime(), {playerid: id, gameid: game.id}).
