@@ -1,2 +1,2 @@
-# cgi-jds
-Site CGI pour les Jeux de Sophia
+# bta-jds
+Site "Bouge Ton Agence" pour les Jeux de Sophia
