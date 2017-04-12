@@ -18,6 +18,10 @@
   color: #2E2E2E;
 }
 
+.text-error-custom {
+  color: #b60000;
+}
+
 .text-success-custom {
   color: #0fb611;
 }
