@@ -47,6 +47,8 @@
           <div data-ng-repeat="game in gamedata.games" class="panel panel-{{getGameStyle(gamedata.currentplayerid, game)}}">
             <div class="panel-heading" role="tab" id="game_{{game.id}}">
               <div class="panel-title">
+                <img  ng-if="game.teamgame" src="static/img/team-invert-icon.png" class="img-rounded" alt="team" width="20" height="20">
+                <img  ng-if="!game.teamgame" src="static/img/indi-invert-icon.png" class="img-rounded" alt="team" width="20" height="20">
                 <a class="h4 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_game_{{game.id}}" aria-expanded="false" aria-controls="collapse_game_{{game.id}}">
                   {{game.name}}
                 </a>
