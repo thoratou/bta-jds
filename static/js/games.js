@@ -124,10 +124,17 @@ function GameCtrl($scope, $http, $rootScope) {
   }
 
   $scope.submitPlayerData = function(id, data) {
-    $http.post('/submitPlayerData?rnd='+new Date().getTime(), {playerid: id, firstname: data.newFirstname, lastname: data.newLastname}).
-      success(function() {
-        refresh()
-      }).error(logError);
+    if(data.newFirstname !== data.players[id].firstname || data.newLastname !== data.players[id].lastname) {
+      $http.post('/submitPlayerData?rnd='+new Date().getTime(), {playerid: id, firstname: data.newFirstname, lastname: data.newLastname}).
+        success(function() {
+          refresh()
+          $("#savetext").css("display","block");
+          setTimeout(
+            function() {
+              $("#savetext").css("display","none");
+            }, 4000);
+        }).error(logError);
+    }
   }
 
   $scope.addPlayerToGame = function(id, game) {
@@ -202,6 +209,5 @@ function GameCtrl($scope, $http, $rootScope) {
         refresh()
       }).error(logError);
   }
-
 
 }

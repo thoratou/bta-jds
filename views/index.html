@@ -19,6 +19,7 @@
             <b>Informations personnelles</b>
           </div>
           <div class="panel-body">
+            <div id="savetext" style="display:none;" ><p class="text-success-custom"><b>Informations sauvegardées</b></p></div>
             <div class="input-group hidden-xs">
               <span class="input-group-addon fill-custom">Prénom : </span>
               <input type="text" class="form-control border-custom" id="newFirstname" name="newFirstname" ng-model="gamedata.newFirstname"></input>
@@ -47,8 +48,8 @@
           <div data-ng-repeat="game in gamedata.games" class="panel panel-{{getGameStyle(gamedata.currentplayerid, game)}}">
             <div class="panel-heading" role="tab" id="game_{{game.id}}">
               <div class="panel-title">
-                <img  ng-if="game.teamgame" src="static/img/team-invert-icon.png" class="img-rounded" alt="team" width="20" height="20">
-                <img  ng-if="!game.teamgame" src="static/img/indi-invert-icon.png" class="img-rounded" alt="team" width="20" height="20">
+                <img  ng-if="game.teamgame" src="static/img/team-invert-icon.png" alt="team" width="20" height="20">
+                <img  ng-if="!game.teamgame" src="static/img/indi-invert-icon.png" alt="solo" width="20" height="20">
                 <a class="h4 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_game_{{game.id}}" aria-expanded="false" aria-controls="collapse_game_{{game.id}}">
                   {{game.name}}
                 </a>
