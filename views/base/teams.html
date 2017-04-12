@@ -1,7 +1,7 @@
 <div ng-if="game.teamgame">
   <div class="panel-group" id="accordion_team_{{game.id}}" role="tablist" aria-multiselectable="true">
     <div data-ng-repeat="teamid in game.teams" class="panel panel-{{getTeamStyle(gamedata.currentplayerid, teamid)}}">
-      <div class="panel-heading" role="tab" id="team_{{teamid}}">
+      <div class="panel-heading" role="tab" id="team_{{teamid}}" data-toggle="collapse" data-parent="#accordion_team_{{game.id}}" data-target="#collapse_team_{{teamid}}">
         <div class="panel-title">
           <a class=" h4 collapsed" role="button" data-toggle="collapse" data-parent="#accordion_team_{{game.id}}" href="#collapse_team_{{teamid}}" aria-expanded="false" aria-controls="collapse_team_{{teamid}}">
             {{getTeam(teamid).name}}

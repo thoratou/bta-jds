@@ -46,7 +46,7 @@
         </div>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div data-ng-repeat="game in gamedata.games" class="panel panel-{{getGameStyle(gamedata.currentplayerid, game)}}">
-            <div class="panel-heading" role="tab" id="game_{{game.id}}">
+            <div class="panel-heading" role="tab" id="game_{{game.id}}" data-toggle="collapse" data-parent="#accordion" data-target="#collapse_game_{{game.id}}">
               <div class="panel-title">
                 <img  ng-if="game.teamgame" src="static/img/team-invert-icon.png" alt="team" width="20" height="20">
                 <img  ng-if="!game.teamgame" src="static/img/indi-invert-icon.png" alt="solo" width="20" height="20">
