@@ -92,6 +92,13 @@ function GameCtrl($scope, $http, $rootScope) {
     return null;
   }
 
+  $scope.getTeamStyle = function(id, teamid) {
+    if ($scope.isPlayerInTeam(id, teamid)) {
+      return "registeredteam";
+    }
+    return "team";
+  }
+
   $scope.getTeam = function(teamid) {
     return $rootScope.gamedata.teams[teamid];
   }

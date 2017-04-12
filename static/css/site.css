@@ -136,3 +136,27 @@
 .panel-team > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #3E4551;
 }
+
+
+.panel-registeredteam {
+  border-color: #005823;
+}
+.panel-registeredteam > .panel-heading {
+  color: #fff;
+  background-color: #005823;
+  border-color: #005823;
+}
+.panel-registeredteam >.panel-collapse > .panel-body {
+  background-color: #d8e2eb;
+}
+
+.panel-registeredteam > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #005823;
+}
+.panel-registeredteam > .panel-heading .badge {
+  color: #005823;
+  background-color: #fff;
+}
+.panel-registeredteam > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #005823;
+}
