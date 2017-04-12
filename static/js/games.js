@@ -159,6 +159,7 @@ function GameCtrl($scope, $http, $rootScope) {
     $http.post('/addTeamToGame?rnd='+new Date().getTime(), {teamname: teamname, managerid: managerid, gameid: game.id}).
       success(function() {
         refresh()
+        $("#collapse_team_add_"+game.id).collapse("hide");
       }).error(logError);
   }
 
