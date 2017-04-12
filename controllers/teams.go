@@ -13,9 +13,14 @@ func CreateTeam(bucket *bolt.Bucket, name string, managerID string, gameID strin
 	newTeam := &models.Team{
 		Name:      name,
 		ManagerID: managerID,
-		Players:   []*models.PlayerData{},
-		GameID:    gameID,
-		Removed:   false,
+		Players: []*models.PlayerData{ //add manager by default
+			&models.PlayerData{
+				ID:      managerID,
+				Comment: "",
+			},
+		},
+		GameID:  gameID,
+		Removed: false,
 	}
 
 	newTeamID, _ := bucket.NextSequence()
