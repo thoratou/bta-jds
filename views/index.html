@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          <div data-ng-repeat="game in gamedata.games" class="panel panel-game">
+          <div data-ng-repeat="game in gamedata.games" class="panel panel-{{getGameStyle(gamedata.currentplayerid, game)}}">
             <div class="panel-heading" role="tab" id="game_{{game.id}}">
               <div class="panel-title">
                 <a class="h4 collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_game_{{game.id}}" aria-expanded="false" aria-controls="collapse_game_{{game.id}}">

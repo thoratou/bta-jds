@@ -1,5 +1,5 @@
 .jumbotron-custom {
-  background-color: #212121;
+  background-color: #a70036;
 }
 
 .global-background {
@@ -91,6 +91,28 @@
 .panel-game > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #37474F;
 }
+
+
+.panel-registeredgame {
+  border-color: #00712d;
+}
+.panel-registeredgame > .panel-heading {
+  color: #fff;
+  background-color: #00712d;
+  border-color: #00712d;
+}
+.panel-registeredgame > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #00712d;
+}
+.panel-registeredgame > .panel-heading .badge {
+  color: #00712d;
+  background-color: #fff;
+}
+.panel-registeredgame > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #00712d;
+}
+
+
 
 .panel-team {
   border-color: #3E4551;

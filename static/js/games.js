@@ -61,6 +61,19 @@ function GameCtrl($scope, $http, $rootScope) {
     return $rootScope.gamedata.players[id].mail;
   }
 
+  $scope.getGameStyle = function(id, game) {
+    if ($scope.isPlayerInGame(id,game)) {
+      return "registeredgame"
+    }
+    var arrayLength = game.teams.length;
+    for (var i = 0; i < arrayLength; i++) {
+      if ($scope.isPlayerInTeam(id, game.teams[i])) {
+        return "registeredgame";
+      }
+    }
+    return "game";
+  }
+
   $scope.isPlayerInGame = function(id, game) {
     var arrayLength = game.players.length;
     for (var i = 0; i < arrayLength; i++) {
