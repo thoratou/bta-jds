@@ -121,6 +121,7 @@ func main() {
 	beego.Router("/addTeamToGame", &controllers.DataController{}, "post:AddTeamToGame")
 	beego.Router("/removeTeamFromGame", &controllers.DataController{}, "post:RemoveTeamFromGame")
 	beego.Router("/changeTeamName", &controllers.DataController{}, "post:ChangeTeamName")
+	beego.Router("/changeManager", &controllers.DataController{}, "post:ChangeManager")
 
 	beego.Router("/addPlayerToTeam", &controllers.DataController{}, "post:AddPlayerToTeam")
 	beego.Router("/removePlayerFromTeam", &controllers.DataController{}, "post:RemovePlayerFromTeam")

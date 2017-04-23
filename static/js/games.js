@@ -13,6 +13,7 @@ function initGameData(data) {
   for(var teamid in data.teams) {
     var team = data.teams[teamid]
     team.newName = team.name;
+    team.newmanagerid = team.managerid
     var arrayLength = team.players.length;
     for (var i = 0; i < arrayLength; i++) {
       if (team.players[i].id === data.currentplayerid) {
@@ -188,6 +189,18 @@ function GameCtrl($scope, $http, $rootScope) {
         refresh()
       }).error(logError);
   }
+
+  $scope.changeManager = function(teamid, oldmanagerid, newmanagerid) {
+    if(oldmanagerid === newmanagerid) {
+      //todo error handling
+      return;
+    }
+    $http.post('/changeManager?rnd='+new Date().getTime(), {teamid: teamid, oldmanagerid: oldmanagerid, newmanagerid: newmanagerid}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
+
 
   $scope.addPlayerToTeam = function(id, teamid) {
     $http.post('/addPlayerToTeam?rnd='+new Date().getTime(), {playerid: id, teamid: teamid}).

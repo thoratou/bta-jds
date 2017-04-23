@@ -139,3 +139,39 @@ func (c *DataController) ChangeTeamName() {
 	c.Ctx.Output.SetStatus(200)
 
 }
+
+//ChangeManagerParams paramaters from team name change query
+type ChangeManagerParams struct {
+	TeamID       string `json:"teamid"`
+	NewManagerID string `json:"newmanagerid"`
+	OldManagerID string `json:"oldmanagerid"`
+}
+
+//ChangeManager remove a team from game from both IDs
+func (c *DataController) ChangeManager() {
+	params := ChangeManagerParams{}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &params); err != nil {
+		c.Ctx.Output.SetStatus(500)
+		return
+	}
+
+	db := GetDB()
+	err := db.Update(func(tx *bolt.Tx) error {
+		teamBucket := tx.Bucket([]byte("teams"))
+		team, err := DeserializeTeamFromDB(teamBucket, params.TeamID)
+		if err == nil {
+			team.ManagerID = params.NewManagerID
+			err = SerializeTeamToDB(teamBucket, team)
+		}
+		return err
+	})
+
+	if err != nil {
+		c.Ctx.Output.SetStatus(501)
+		c.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	c.Ctx.Output.SetStatus(200)
+
+}
