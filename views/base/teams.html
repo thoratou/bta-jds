@@ -14,6 +14,10 @@
       <div id="collapse_team_{{teamid}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="team_{{teamid}}">
         <div class="panel-body">
           {{<template "base/team_manager.html" .>}}
+          <div ng-if="getTeam(teamid).comment">
+            <div class="well" style="white-space: pre;">{{getTeam(teamid).comment}}</div>
+            <p></p>
+          </div>
           {{<template "base/team_actions.html" .>}}
         </div>
         {{<template "base/team_table.html" .>}}        

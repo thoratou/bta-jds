@@ -7,6 +7,7 @@ type Team struct {
 	ManagerID string        `json:"managerid"`
 	Players   []*PlayerData `json:"players"`
 	GameID    string        `json:"gameid"`
+	Comment   string        `json:"comment"`
 	Removed   bool          `json:"removed"`
 }
 

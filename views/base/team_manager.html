@@ -6,6 +6,14 @@
   <div class="collapse" id="collapse_management_team_{{teamid}}">
     <p></p>
     <div class="well background-custom">
+      <div class="form-group well">
+        <label for="management_team_{{teamid}}_comment">Commentaire d'équipe :</label>
+        <textarea class="form-control" rows="5" id="management_team_{{teamid}}_comment" ng-model="getTeam(teamid).newcomment"></textarea>
+        <p></p>
+        <button class="btn btn-primary" type="button" ng-click='submitTeamComment(teamid, getTeam(teamid).newcomment, gamedata.currentplayerid)'>Soumettre le commentaire d'équipe</button>
+      </div>
+
+      <div>&nbsp;</div>
       <div class="input-group hidden-xs">
         <input type="text" class="form-control border-custom" id="team" name="team" ng-model="getTeam(teamid).newName"></input>
         <span class="input-group-btn">

@@ -140,14 +140,14 @@ func (c *DataController) ChangeTeamName() {
 
 }
 
-//ChangeManagerParams paramaters from team name change query
+//ChangeManagerParams change team manager paramaters
 type ChangeManagerParams struct {
 	TeamID       string `json:"teamid"`
 	NewManagerID string `json:"newmanagerid"`
 	OldManagerID string `json:"oldmanagerid"`
 }
 
-//ChangeManager remove a team from game from both IDs
+//ChangeManager change team manager
 func (c *DataController) ChangeManager() {
 	params := ChangeManagerParams{}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &params); err != nil {
@@ -161,6 +161,42 @@ func (c *DataController) ChangeManager() {
 		team, err := DeserializeTeamFromDB(teamBucket, params.TeamID)
 		if err == nil {
 			team.ManagerID = params.NewManagerID
+			err = SerializeTeamToDB(teamBucket, team)
+		}
+		return err
+	})
+
+	if err != nil {
+		c.Ctx.Output.SetStatus(501)
+		c.Ctx.Output.Body([]byte(err.Error()))
+		return
+	}
+
+	c.Ctx.Output.SetStatus(200)
+
+}
+
+//SubmitTeamCommentParams submit team comment paramaters
+type SubmitTeamCommentParams struct {
+	TeamID     string `json:"teamid"`
+	NewComment string `json:"newcomment"`
+	ManagerID  string `json:"managerid"`
+}
+
+//SubmitTeamComment submit team comment
+func (c *DataController) SubmitTeamComment() {
+	params := SubmitTeamCommentParams{}
+	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &params); err != nil {
+		c.Ctx.Output.SetStatus(500)
+		return
+	}
+
+	db := GetDB()
+	err := db.Update(func(tx *bolt.Tx) error {
+		teamBucket := tx.Bucket([]byte("teams"))
+		team, err := DeserializeTeamFromDB(teamBucket, params.TeamID)
+		if err == nil {
+			team.Comment = params.NewComment
 			err = SerializeTeamToDB(teamBucket, team)
 		}
 		return err

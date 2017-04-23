@@ -14,6 +14,7 @@ function initGameData(data) {
     var team = data.teams[teamid]
     team.newName = team.name;
     team.newmanagerid = team.managerid
+    team.newcomment = team.comment
     var arrayLength = team.players.length;
     for (var i = 0; i < arrayLength; i++) {
       if (team.players[i].id === data.currentplayerid) {
@@ -201,6 +202,12 @@ function GameCtrl($scope, $http, $rootScope) {
       }).error(logError);
   }
 
+  $scope.submitTeamComment = function(teamid, newcomment, managerid) {
+    $http.post('/submitTeamComment?rnd='+new Date().getTime(), {teamid: teamid, newcomment: newcomment, managerid: managerid}).
+      success(function() {
+        refresh()
+      }).error(logError);
+  }
 
   $scope.addPlayerToTeam = function(id, teamid) {
     $http.post('/addPlayerToTeam?rnd='+new Date().getTime(), {playerid: id, teamid: teamid}).
