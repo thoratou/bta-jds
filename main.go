@@ -281,16 +281,7 @@ func main() {
 				"Dates des qualifications : 29, 30, 31 mai et 02, 12, 14 Juin 2017 de 12h15 à 18h15",
 				"Finale : Vendredi 16 juin de 18h à 21h",
 			})
-			controllers.CreateTeamGame(createdBucket, "Tir à l'Arc par Equipe (Femme)", 4, []string{
-				"Session de tir à l'arc et Arc'trap (loisir)",
-				"Les équipes sont constituées de 4 hommes ou 4 femmes. Pas de mixité.",
-				"Les membres de l'équipe sont composés de 2 membres maximum d'une même entreprise.",
-				"Épreuve spéciale : 11 € de supplément par personne / 2ème session Tir à l'arc 10 euros (paiement sur place)",
-				"Date limite d’inscription : Samedi 27 juin",
-				"Dates des qualifications : 29, 30, 31 mai et 02, 12, 14 Juin 2017 de 12h15 à 18h15",
-				"Finale : Vendredi 16 juin de 18h à 21h",
-			})
-			controllers.CreateTeamGame(createdBucket, "Tir à l'Arc par Equipe (Homme)", 4, []string{
+			controllers.CreateTeamGame(createdBucket, "Tir à l'Arc par Equipe", 4, []string{
 				"Session de tir à l'arc et Arc'trap (loisir)",
 				"Les équipes sont constituées de 4 hommes ou 4 femmes. Pas de mixité.",
 				"Les membres de l'équipe sont composés de 2 membres maximum d'une même entreprise.",
