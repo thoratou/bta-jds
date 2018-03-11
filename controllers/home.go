@@ -7,7 +7,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/bta-jds/models"
+	"github.com/thoratou/organize-jds/models"
 )
 
 //HomeController home pase with authentication

@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/bta-jds/controllers"
-	"github.com/thoratou/bta-jds/models"
+	"github.com/thoratou/organize-jds-jds/controllers"
+	"github.com/thoratou/organize-jds-jds/models"
 )
 
 func TestCreateUsers(t *testing.T) {

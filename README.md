@@ -1,2 +1,2 @@
-# bta-jds
-Site "Bouge Ton Agence" pour les Jeux de Sophia
+# organize-jds
+Site Entreprise pour organisation interne des Jeux de Sophia

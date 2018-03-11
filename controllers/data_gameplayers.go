@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/bta-jds/models"
+	"github.com/thoratou/organize-jds/models"
 )
 
 //AddPlayerToGameParams paramaters from player addition to game query

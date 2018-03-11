@@ -5,7 +5,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/bta-jds/models"
+	"github.com/thoratou/organize-jds/models"
 )
 
 //DeserializeCurrentPlayerIDFromDB deserialize current player ID from mail
