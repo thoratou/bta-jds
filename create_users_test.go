@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/boltdb/bolt"
-	"github.com/thoratou/organize-jds-jds/controllers"
-	"github.com/thoratou/organize-jds-jds/models"
+	"github.com/thoratou/organize-jds/controllers"
+	"github.com/thoratou/organize-jds/models"
 )
 
 func TestCreateUsers(t *testing.T) {
@@ -22,9 +22,9 @@ func TestCreateUsers(t *testing.T) {
 		tx.CreateBucketIfNotExists([]byte("users"))
 		tx.CreateBucketIfNotExists([]byte("players"))
 
-		createDefaultUser(tx, "toto1@cgi.com")
-		createDefaultUser(tx, "toto2@cgi.com")
-		createDefaultUser(tx, "toto3@cgi.com")
+		createDefaultUser(tx, "toto1@gmail.com")
+		createDefaultUser(tx, "toto2@gmail.com")
+		createDefaultUser(tx, "toto3@gmail.com")
 		return nil
 	})
 }

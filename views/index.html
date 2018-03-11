@@ -32,12 +32,12 @@
             <div class="visible-xs">
               <div class="input-group">
                 <span class="input-group-addon fill-custom">Prénom : </span>
-                <input type="text" class="form-control border-custom" id="newFirstname" name="newFirstname" ng-model="gamedata.newFirstname"></input>
+                <input type="text" class="form-control border-custom" id="newFirstname-xs" name="newFirstname" ng-model="gamedata.newFirstname"></input>
               </div>
               <p></p>
               <div class="input-group">
                 <span class="input-group-addon fill-custom">Nom : &nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <input type="text" class="form-control border-custom" id="newLastname" name="newLastname" ng-model="gamedata.newLastname"></input>
+                <input type="text" class="form-control border-custom" id="newLastname-xs" name="newLastname" ng-model="gamedata.newLastname"></input>
               </div>
               <p></p>
               <button class="btn btn-primary" type="button" ng-click='submitPlayerData(gamedata.currentplayerid, gamedata)'>Sauvegarder</button>
@@ -63,9 +63,9 @@
                   <p>{{descline}}</p>
                 </div>
                 {{<template "base/individual_actions.html" .>}}
+                {{<template "base/individual_table.html" .>}}
                 {{<template "base/teams.html" .>}}
               </div>
-              {{<template "base/individual_table.html" .>}}
             </div>
           </div>
         </div>

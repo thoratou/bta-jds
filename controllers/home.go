@@ -17,8 +17,13 @@ type HomeController struct {
 
 //Get handle get request
 func (c *HomeController) Get() {
-	c.Data["Website"] = "bta-jds.com"
-	c.Data["Email"] = "thoratou@gmail.com"
+	c.Data["Website"] = GetSettings().Site
+	c.Data["Email"] = GetSettings().Contact
+	c.Data["CSS"] = GetSettings().CSS
+	c.Data["CompanyName"] = GetSettings().CompanyName
+	c.Data["MailExtension"] = GetSettings().MailExtension
+	c.Data["SendMail"] = GetSettings().SenderMail
+	c.Data["Contact"] = GetSettings().Contact
 	c.TplName = "index.html"
 	c.Render()
 }
@@ -44,7 +49,7 @@ func (c *HomeController) SignInQuery() {
 		return
 	}
 
-	mail := user + "@cgi.com"
+	mail := user + "@" + GetSettings().MailExtension
 
 	password := data.Password
 	if password == "" {
@@ -105,7 +110,7 @@ func (c *HomeController) SignUpQuery() {
 		return
 	}
 
-	mail := user + "@cgi.com"
+	mail := user + "@" + GetSettings().MailExtension
 
 	db := GetDB()
 	userData := models.UserData{}

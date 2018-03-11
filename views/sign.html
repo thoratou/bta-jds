@@ -11,7 +11,7 @@
             <b>E-mail :</b>
             <div class="input-group">
               <input type="text" class="form-control border-custom" id="user" name="user" ng-model="user"></input>
-              <span class="input-group-addon fill-custom">@cgi.com</span>
+              <span class="input-group-addon fill-custom">@{{< .MailExtension >}}</span>
             </div>
             <p></p>
             <p></p>
@@ -31,9 +31,9 @@
             <p></p>
             <p></p>
             <div align="justify">
-              <button type="submit" class="btn btn-custom col-xs-12 col-sm-4 col-md-4" ng-click='signin()'><b>Se connecter</b></button>
+              <button type="submit" class="btn btn-custom col-xs-12 col-sm-4 col-md-4" ng-click='signin("{{< .MailExtension >}}")'><b>Se connecter</b></button>
               <div class="col-xs-12 col-sm-2 col-md-3"></div>
-              <button type="submit" class="btn btn-custom col-xs-12 col-sm-6 col-md-5" ng-click='signup()'><i>Nouveau mot de passe</i></button>
+              <button type="submit" class="btn btn-custom col-xs-12 col-sm-6 col-md-5" ng-click='signup("{{< .MailExtension >}}")'><i>Nouveau mot de passe</i></button>
             </div>
           </div>
         </div>

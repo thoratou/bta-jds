@@ -19,7 +19,7 @@ function SignCtrl($scope, $http, $rootScope) {
       }).error(logError);
   };
 
-  $scope.signin = function() {
+  $scope.signin = function(mailExtension) {
     $scope.user = $scope.user.toLowerCase();
     console.log('trying to sign in: '+$scope.user+','+$scope.password);
     $scope.errormessage = "";
@@ -28,7 +28,7 @@ function SignCtrl($scope, $http, $rootScope) {
     $http.post('/signin?rnd='+new Date().getTime(), {user: $scope.user, password: $scope.password}).
       success(function() {
           $rootScope.loggedin = true;
-          $rootScope.mail = $scope.user+"@cgi.com";
+          $rootScope.mail = $scope.user+"@"+mailExtension;
           
           var mailURI = encodeURIComponent($rootScope.mail).replace(/\./g, '&middot;')
           console.log('mailURI: '+mailURI);

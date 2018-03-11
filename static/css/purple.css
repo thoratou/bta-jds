@@ -1,0 +1,166 @@
+.jumbotron-custom {
+  background-color: #524b74;
+}
+
+.global-background {
+  background-color: #d8e2eb;
+}
+
+.border-custom {
+  border-color: #2E2E2E;
+}
+
+.background-custom {
+  background-color: #2E2E2E;
+}
+
+.text-custom {
+  color: #2E2E2E;
+}
+
+.text-error-custom {
+  color: #b60000;
+}
+
+.text-success-custom {
+  color: #0fb611;
+}
+
+.fill-custom {
+  color: #fff;
+  background-color: #524b74;
+  border-color: #2E2E2E;
+}
+
+.btn-custom {
+  color: #fff;
+  background-color: #524b74;
+  border-color: #524b74;
+}
+.btn-custom:focus,
+.btn-custom.focus {
+  color: #fff;
+  background-color: #524b74;
+  border-color: #524b74;
+}
+.btn-custom:hover {
+  color: #fff;
+  background-color: #6bb9b0;
+  border-color: #6bb9b0;
+}
+.btn-custom:active,
+.btn-custom.active,
+.open > .dropdown-toggle.btn-custom {
+  color: #fff;
+  background-color: #212121;
+  border-color: #212121;
+}
+
+.panel-custom {
+  border-color: #524b74;
+}
+.panel-custom > .panel-heading {
+  color: #fff;
+  background-color: #524b74;
+  border-color: #524b74;
+}
+.panel-custom > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #524b74;
+}
+.panel-custom > .panel-heading .badge {
+  color: #524b74;
+  background-color: #fff;
+}
+.panel-custom > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #524b74;
+}
+
+
+
+.panel-game {
+  border-color: #524b74;
+}
+.panel-game > .panel-heading {
+  color: #fff;
+  background-color: #524b74;
+  border-color: #524b74;
+}
+.panel-game > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #524b74;
+}
+.panel-game > .panel-heading .badge {
+  color: #524b74;
+  background-color: #fff;
+}
+.panel-game > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #524b74;
+}
+
+
+.panel-registeredgame {
+  border-color: #6bb9b0;
+}
+.panel-registeredgame > .panel-heading {
+  color: #fff;
+  background-color: #6bb9b0;
+  border-color: #6bb9b0;
+}
+.panel-registeredgame > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #6bb9b0;
+}
+.panel-registeredgame > .panel-heading .badge {
+  color: #6bb9b0;
+  background-color: #fff;
+}
+.panel-registeredgame > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #6bb9b0;
+}
+
+
+
+.panel-team {
+  border-color: #524b74;
+}
+.panel-team > .panel-heading {
+  color: #fff;
+  background-color: #524b74;
+  border-color: #524b74;
+}
+.panel-team >.panel-collapse > .panel-body {
+  background-color: #d8e2eb;
+}
+
+.panel-team > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #524b74;
+}
+.panel-team > .panel-heading .badge {
+  color: #524b74;
+  background-color: #fff;
+}
+.panel-team > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #524b74;
+}
+
+
+.panel-registeredteam {
+  border-color: #6bb9b0;
+}
+.panel-registeredteam > .panel-heading {
+  color: #fff;
+  background-color: #6bb9b0;
+  border-color: #6bb9b0;
+}
+.panel-registeredteam >.panel-collapse > .panel-body {
+  background-color: #d8e2eb;
+}
+
+.panel-registeredteam > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #6bb9b0;
+}
+.panel-registeredteam > .panel-heading .badge {
+  color: #6bb9b0;
+  background-color: #fff;
+}
+.panel-registeredteam > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #6bb9b0;
+}

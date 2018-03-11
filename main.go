@@ -11,6 +11,16 @@ import (
 )
 
 func main() {
+	//open settings
+	settings, err := controllers.DeserializeCompanyFromJSONFile("./settings.json")
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	controllers.SetSettings(settings)
+
+	//open and feed DB if required
 	db, err := bolt.Open("bolt.db", 0600, &bolt.Options{Timeout: 10 * time.Second})
 	if err != nil {
 		log.Fatal(err)

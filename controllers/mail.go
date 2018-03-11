@@ -3,7 +3,6 @@ package controllers
 import (
 	"encoding/base64"
 	"fmt"
-	"io/ioutil"
 	"net/mail"
 	"net/smtp"
 )
@@ -11,18 +10,16 @@ import (
 //SendMail send registration mail with new password created
 func SendMail(toAddress string, password string) error {
 	// Set up authentication information.
-	buffer, err := ioutil.ReadFile("./.mailpassword")
-	gmailPassword := string(buffer)
 	auth := smtp.PlainAuth(
 		"",
-		"btajds2017@gmail.com",
-		gmailPassword,
+		GetSettings().SenderMail,
+		GetSettings().SenderPassword,
 		"smtp.gmail.com",
 	)
 
 	from := mail.Address{
-		Name:    "CGI Jeux de Sophia",
-		Address: "btajds2017@gmail.com",
+		Name:    GetSettings().CompanyName + " - Jeux de Sophia",
+		Address: GetSettings().SenderMail,
 	}
 	to := mail.Address{
 		Name:    "",
@@ -30,7 +27,7 @@ func SendMail(toAddress string, password string) error {
 	}
 	title := "Inscription site Bouge Ton Agence Jeux de Sophia"
 
-	body := "Merci de votre inscription sur le site Bouge Ton Agence des jeux de Sophia\r\nVotre nouveau mot de passe est " + password
+	body := "Merci de votre inscription sur le site " + GetSettings().CompanyName + " des jeux de Sophia\r\nVotre nouveau mot de passe est " + password
 
 	// Fill header data
 	header := make(map[string]string)
@@ -49,15 +46,13 @@ func SendMail(toAddress string, password string) error {
 
 	// Connect to the server, authenticate, set the sender and recipient,
 	// and send the email all in one step.
-	if err == nil {
-		err = smtp.SendMail(
-			"smtp.gmail.com:587",
-			auth,
-			"btajds2017@gmail.com",
-			[]string{toAddress},
-			[]byte(message),
-		)
-	}
+	err := smtp.SendMail(
+		"smtp.gmail.com:587",
+		auth,
+		GetSettings().SenderMail,
+		[]string{toAddress},
+		[]byte(message),
+	)
 
 	return err
 }
