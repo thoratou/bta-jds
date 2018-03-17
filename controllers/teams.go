@@ -21,6 +21,7 @@ func CreateTeam(bucket *bolt.Bucket, name string, managerID string, gameID strin
 		},
 		GameID:  gameID,
 		Comment: "",
+		Forum:   map[string]*models.ForumPost{},
 		Removed: false,
 	}
 

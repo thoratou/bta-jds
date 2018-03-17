@@ -17,6 +17,7 @@ func CreateTeamGame(bucket *bolt.Bucket, name string, minPlayers int, descriptio
 		MinPlayers:  minPlayers,
 		Description: description,
 		Players:     []*models.PlayerData{},
+		Forum:       map[string]*models.ForumPost{},
 		Teams:       []string{},
 	}
 
@@ -32,6 +33,7 @@ func CreateIndividualGame(bucket *bolt.Bucket, name string, description []string
 		MinPlayers:  0,
 		Description: description,
 		Players:     []*models.PlayerData{},
+		Forum:       map[string]*models.ForumPost{},
 		Teams:       []string{},
 	}
 

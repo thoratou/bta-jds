@@ -31,6 +31,7 @@ func main() {
 		tx.CreateBucketIfNotExists([]byte("users"))
 		tx.CreateBucketIfNotExists([]byte("teams"))
 		tx.CreateBucketIfNotExists([]byte("players"))
+		tx.CreateBucketIfNotExists([]byte("forumids"))
 
 		b := tx.Bucket([]byte("games"))
 		if b == nil {
@@ -382,6 +383,8 @@ func main() {
 	beego.Router("/changeTeamName", &controllers.DataController{}, "post:ChangeTeamName")
 	beego.Router("/changeManager", &controllers.DataController{}, "post:ChangeManager")
 	beego.Router("/submitTeamComment", &controllers.DataController{}, "post:SubmitTeamComment")
+
+	beego.Router("/submitTeamNewPost", &controllers.DataController{}, "post:SubmitTeamNewPost")
 
 	beego.Router("/addPlayerToTeam", &controllers.DataController{}, "post:AddPlayerToTeam")
 	beego.Router("/removePlayerFromTeam", &controllers.DataController{}, "post:RemovePlayerFromTeam")
