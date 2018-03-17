@@ -5,13 +5,13 @@
 </div>
 <div ng-if="!game.teamgame && isPlayerInGame(gamedata.currentplayerid, game)">
   <div class="input-group hidden-xs">
-    <input type="text" class="form-control" id="comment" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment"></input>
+    <input type="text" class="form-control" id="comment_{{game.id}}" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment"></input>
     <span class="input-group-btn">
       <button class="btn btn-primary" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
     </span>
   </div>
   <div class="visible-xs">
-    <input type="text" class="form-control col-xs-12" id="comment" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment"></input>
+    <input type="text" class="form-control col-xs-12" id="comment_xs_{{game.id}}" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment"></input>
     <button class="btn btn-primary col-xs-12" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
   </div>
   <div>&nbsp;</div>

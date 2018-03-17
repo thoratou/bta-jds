@@ -15,13 +15,13 @@
 
       <div>&nbsp;</div>
       <div class="input-group hidden-xs">
-        <input type="text" class="form-control border-custom" id="team" name="team" ng-model="getTeam(teamid).newName"></input>
+        <input type="text" class="form-control border-custom" id="team_{{teamid}}" name="team" ng-model="getTeam(teamid).newName"></input>
         <span class="input-group-btn">
           <button class="btn btn-primary" type="button" ng-click='changeTeamName(teamid, getTeam(teamid).newName, gamedata.currentplayerid)'>Changer le nom de l'équipe</button>
         </span>
       </div>
       <div class="visible-xs">
-        <input type="text" class="form-control border-custom col-xs-12" id="team" name="team" ng-model="getTeam(teamid).newName"></input>
+        <input type="text" class="form-control border-custom col-xs-12" id="team_xs_{{teamid}}" name="team" ng-model="getTeam(teamid).newName"></input>
         <button class="btn btn-primary col-xs-12" type="button" ng-click='changeTeamName(teamid, getTeam(teamid).newName, gamedata.currentplayerid)'>Changer le nom de l'équipe</button>
       </div>
 
