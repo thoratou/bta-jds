@@ -233,10 +233,12 @@ function GameCtrl($scope, $http, $rootScope) {
   }
 
   $scope.submitTeamNewPost = function(teamid, newpost, playerid) {
-    $http.post('/submitTeamNewPost?rnd='+new Date().getTime(), {teamid: teamid, newpost: newpost, playerid: playerid}).
+    if(newpost != ""){
+      $http.post('/submitTeamNewPost?rnd='+new Date().getTime(), {teamid: teamid, newpost: newpost, playerid: playerid}).
       success(function() {
         refresh()
       }).error(logError);
+    }
   }
 
 }

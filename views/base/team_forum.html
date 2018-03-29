@@ -1,14 +1,14 @@
-<button class="btn btn-custom" type="button" data-toggle="collapse" data-target="#collapse_team_forum_{{teamid}}" aria-expanded="true" aria-controls="collapse_team_forum_{{teamid}}">
-  Forum
-</button>
-<div class="collapse" id="collapse_team_forum_{{teamid}}">
-  <div class="well background-custom">
-    <div class="form-group well">
-      <label for="team_{{teamid}}_new_post">Nouveau post :</label>
-      <textarea class="form-control" rows="5" id="team_{{teamid}}_new_post" ng-model="getTeam(teamid).newpost"></textarea>
-      <p></p>
-      <button class="btn btn-primary" type="button" ng-click='submitTeamNewPost(teamid, getTeam(teamid).newpost, gamedata.currentplayerid)'>Soumettre le post</button>
-    </div>
+<div class="well background-custom">
+  <p class="text-custom"><b>Forum</b></p>
+  <div class="form-group well" data-ng-repeat="post in getTeam(teamid).forum">
+      <p><b>{{getMail(post.playerid)}}</b> a posté le {{post.creationdate}}</p>
+      <textarea class="form-control" rows="5" disabled>{{post.content}}</textarea>
+  </div>
+  <div class="form-group well background-custom2">
+    <label class="text-custom2" for="team_{{teamid}}_new_post">Nouveau post :</label>
+    <textarea class="form-control" rows="5" id="team_{{teamid}}_new_post" ng-model="getTeam(teamid).newpost"></textarea>
+    <p></p>
+    <button class="btn btn-custom2" type="button" ng-click='submitTeamNewPost(teamid, getTeam(teamid).newpost, gamedata.currentplayerid)'>Soumettre le post</button>
   </div>
 </div>
 <div>&nbsp;</div>
