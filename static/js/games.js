@@ -241,4 +241,26 @@ function GameCtrl($scope, $http, $rootScope) {
     }
   }
 
+  $scope.submitTeamModifyPost = function(teamid, postid, modifiedpost, playerid) {
+    if(modifiedpost != ""){
+      $http.post('/submitTeamModifyPost?rnd='+new Date().getTime(), {teamid: teamid, modifiedpost: modifiedpost, postid: postid, playerid: playerid}).
+      success(function() {
+        refresh()
+      }).error(logError);
+    }
+  }
+
+  $scope.submitTeamDeletePost = function(teamid, postid, playerid) {
+    $http.post('/submitTeamDeletePost?rnd='+new Date().getTime(), {teamid: teamid, postid: postid, playerid: playerid}).
+    success(function() {
+      refresh()
+    }).error(logError);
+  }
+
+  $scope.restoreTeamPost = function(teamid, postid, playerid) {
+    $http.post('/restoreTeamPost?rnd='+new Date().getTime(), {teamid: teamid, postid: postid, playerid: playerid}).
+    success(function() {
+      refresh()
+    }).error(logError);
+  }
 }

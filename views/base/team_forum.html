@@ -1,8 +1,35 @@
 <div class="well background-custom">
   <p class="text-custom"><b>Forum</b></p>
   <div class="form-group well" data-ng-repeat="post in getTeam(teamid).forum">
-      <p><b>{{getMail(post.playerid)}}</b> a posté le {{post.creationdate}}</p>
-      <textarea class="form-control" rows="5" disabled>{{post.content}}</textarea>
+    <div ng-if='post.deletiondate == ""'>
+      <div ng-if='getFirstName(post.playerid) != "" && getLastName(post.playerid) != "" '>
+        <p><b>{{getFirstName(post.playerid)}} {{getLastName(post.playerid)}}</b> a posté le {{post.creationdate}}</p>
+      </div>
+      <div ng-if='getFirstName(post.playerid) == "" || getLastName(post.playerid) == "" '>
+        <p><b>{{getMail(post.playerid)}}</b> a posté le {{post.creationdate}}</p>
+      </div>
+      <div ng-if='post.modificationdate != ""'>
+          <p><i>Modifié le {{post.modificationdate}}</i></p>
+      </div>
+      <div ng-if='gamedata.currentplayerid != post.playerid'>
+        <textarea class="form-control" rows="5" disabled>{{post.content}}</textarea>
+      </div>
+      <div ng-if='gamedata.currentplayerid == post.playerid'>
+        <textarea class="form-control" rows="5" ng-model="post.content"></textarea>
+        <p></p>
+        <div>
+          <button class="btn btn-custom" type="button" ng-click='submitTeamModifyPost(teamid, post.id, post.content, gamedata.currentplayerid)'>Modifier</button>
+          <button class="btn btn-danger" type="button" ng-click='submitTeamDeletePost(teamid, post.id, gamedata.currentplayerid)'>Supprimer</button>    
+        </div>
+      </div>
+    </div>
+    <div ng-if='post.deletiondate != ""'>
+      <i>Post supprimé le {{post.deletiondate}}</i>
+      <div ng-if='gamedata.currentplayerid == post.playerid'>
+        <p></p>
+        <button class="btn btn-custom" type="button" ng-click='restoreTeamPost(teamid, post.id, gamedata.currentplayerid)'>Restaurer</button>
+      </div>
+    </div>
   </div>
   <div class="form-group well background-custom2">
     <label class="text-custom2" for="team_{{teamid}}_new_post">Nouveau post :</label>
