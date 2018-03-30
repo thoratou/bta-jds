@@ -25,9 +25,14 @@ func SendMail(toAddress string, password string) error {
 		Name:    "",
 		Address: toAddress,
 	}
-	title := "Inscription site Bouge Ton Agence Jeux de Sophia"
+	title := "Inscription site " + GetSettings().CompanyName + " Jeux de Sophia"
 
-	body := "Merci de votre inscription sur le site " + GetSettings().CompanyName + " des jeux de Sophia\r\nVotre nouveau mot de passe est " + password
+	body := "Merci de votre inscription sur le site " + GetSettings().CompanyName + " des Jeux de Sophia\r\n" +
+		"Votre nouveau mot de passe est " + password + "\r\n" +
+		"\r\n" +
+		"Note sur la protection des données personnelles :\r\n" +
+		"Veuillez ne pas renseigner sur ce site des informations personnelles et/ou professionnelles portant atteinte à votre sécurité et/ou celle de votre entreprise\r\n" +
+		"(identifiant, mot de passe, adresse du domicile, plaque d'immatriculation, carte de crédit, ...).\r\n"
 
 	// Fill header data
 	header := make(map[string]string)
