@@ -83,7 +83,7 @@ func (c *DataController) SubmitTeamModifyPost() {
 		if err == nil {
 			post, postexists := team.Forum[params.PostID]
 			if postexists && post.PlayerID == params.PlayerID {
-				ModifyPost(team, params.PostID, params.ModifiedPost)
+				ModifyTeamPost(team, params.PostID, params.ModifiedPost)
 				err = SerializeTeamToDB(b, team)
 			} else {
 				return NewPostError("invalid data parameters")
@@ -123,7 +123,7 @@ func (c *DataController) SubmitTeamDeletePost() {
 		if err == nil {
 			post, postexists := team.Forum[params.PostID]
 			if postexists && post.PlayerID == params.PlayerID {
-				DeletePost(team, params.PostID)
+				DeleteTeamPost(team, params.PostID)
 				err = SerializeTeamToDB(b, team)
 			} else {
 				return NewPostError("invalid data parameters")
@@ -163,7 +163,7 @@ func (c *DataController) RestoreTeamPost() {
 		if err == nil {
 			post, postexists := team.Forum[params.PostID]
 			if postexists && post.PlayerID == params.PlayerID {
-				RestorePost(team, params.PostID)
+				RestoreTeamPost(team, params.PostID)
 				err = SerializeTeamToDB(b, team)
 			} else {
 				return NewPostError("invalid data parameters")

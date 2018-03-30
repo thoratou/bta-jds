@@ -263,4 +263,36 @@ function GameCtrl($scope, $http, $rootScope) {
       refresh()
     }).error(logError);
   }
+
+  $scope.submitGameNewPost = function(gameid, newpost, playerid) {
+    if(newpost != ""){
+      $http.post('/submitGameNewPost?rnd='+new Date().getTime(), {gameid: gameid, newpost: newpost, playerid: playerid}).
+      success(function() {
+        refresh()
+      }).error(logError);
+    }
+  }
+
+  $scope.submitGameModifyPost = function(gameid, postid, modifiedpost, playerid) {
+    if(modifiedpost != ""){
+      $http.post('/submitGameModifyPost?rnd='+new Date().getTime(), {gameid: gameid, modifiedpost: modifiedpost, postid: postid, playerid: playerid}).
+      success(function() {
+        refresh()
+      }).error(logError);
+    }
+  }
+
+  $scope.submitGameDeletePost = function(gameid, postid, playerid) {
+    $http.post('/submitGameDeletePost?rnd='+new Date().getTime(), {gameid: gameid, postid: postid, playerid: playerid}).
+    success(function() {
+      refresh()
+    }).error(logError);
+  }
+
+  $scope.restoreGamePost = function(gameid, postid, playerid) {
+    $http.post('/restoreGamePost?rnd='+new Date().getTime(), {gameid: gameid, postid: postid, playerid: playerid}).
+    success(function() {
+      refresh()
+    }).error(logError);
+  }
 }

@@ -4,7 +4,7 @@
   </div>
 </div>
 <div ng-if="!game.teamgame && isPlayerInGame(gamedata.currentplayerid, game)">
-  <div class="input-group hidden-xs">
+  <!-- inactivate comment submission div class="input-group hidden-xs">
     <input type="text" class="form-control" id="comment_{{game.id}}" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment"></input>
     <span class="input-group-btn">
       <button class="btn btn-primary" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
@@ -14,7 +14,7 @@
     <input type="text" class="form-control col-xs-12" id="comment_xs_{{game.id}}" name="comment" ng-model="getPlayerInGame(gamedata.currentplayerid, game).newComment"></input>
     <button class="btn btn-primary col-xs-12" type="button" ng-click='submitPlayerGameComment(gamedata.currentplayerid, game)'>Soumettre le commentaire</button>
   </div>
-  <div>&nbsp;</div>
+  <div>&nbsp;</div -->
   <button class="btn btn-danger" type="button" data-toggle="collapse" data-target="#collapse_game_remove_{{game.id}}">
     Se retirer de l'épreuve
   </button>
