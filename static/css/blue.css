@@ -1,0 +1,203 @@
+.jumbotron-custom {
+  background-color: #005fa8;
+}
+
+.global-background {
+  background-color: #d8e2eb;
+}
+
+.border-custom {
+  border-color: #005fa8;
+}
+
+.background-custom {
+  background-color: #005fa8;
+}
+
+.text-custom {
+  color: #fff;
+}
+
+.text-error-custom {
+  color: #b60000;
+}
+
+.text-success-custom {
+  color: #0fb611;
+}
+
+.fill-custom {
+  color: #fff;
+  background-color: #005fa8;
+  border-color: #2E2E2E;
+}
+
+.btn-custom {
+  color: #fff;
+  background-color: #005fa8;
+  border-color: #005fa8;
+}
+.btn-custom:focus,
+.btn-custom.focus {
+  color: #fff;
+  background-color: #005fa8;
+  border-color: #005fa8;
+}
+.btn-custom:hover {
+  color: #fff;
+  background-color: #ff9900;
+  border-color: #ff9900;
+}
+.btn-custom:active,
+.btn-custom.active,
+.open > .dropdown-toggle.btn-custom {
+  color: #fff;
+  background-color: #212121;
+  border-color: #212121;
+}
+
+.panel-custom {
+  border-color: #005fa8;
+}
+.panel-custom > .panel-heading {
+  color: #fff;
+  background-color: #005fa8;
+  border-color: #005fa8;
+}
+.panel-custom > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #005fa8;
+}
+.panel-custom > .panel-heading .badge {
+  color: #005fa8;
+  background-color: #fff;
+}
+.panel-custom > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #005fa8;
+}
+
+
+
+
+
+.background-custom2 {
+  background-color: #4186bb;
+  border-color: #4186bb;
+}
+
+.text-custom2 {
+  color: #fff;
+}
+
+.btn-custom2 {
+  color: #005fa8;
+  background-color: #fff;
+  border-color: #fff;
+}
+.btn-custom2:focus,
+.btn-custom2.focus {
+  color: #005fa8;
+  background-color: #fff;
+  border-color: #fff;
+}
+.btn-custom2:hover {
+  color: #fff;
+  background-color: #ff9900;
+  border-color: #ff9900;
+}
+.btn-custom2:active,
+.btn-custom2.active,
+.open > .dropdown-toggle.btn-custom2 {
+  color: #fff;
+  background-color: #212121;
+  border-color: #212121;
+}
+
+
+
+.panel-game {
+  border-color: #005fa8;
+}
+.panel-game > .panel-heading {
+  color: #fff;
+  background-color: #005fa8;
+  border-color: #005fa8;
+}
+.panel-game > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #005fa8;
+}
+.panel-game > .panel-heading .badge {
+  color: #005fa8;
+  background-color: #fff;
+}
+.panel-game > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #005fa8;
+}
+
+
+.panel-registeredgame {
+  border-color: #ff9900;
+}
+.panel-registeredgame > .panel-heading {
+  color: #fff;
+  background-color: #ff9900;
+  border-color: #ff9900;
+}
+.panel-registeredgame > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #ff9900;
+}
+.panel-registeredgame > .panel-heading .badge {
+  color: #ff9900;
+  background-color: #fff;
+}
+.panel-registeredgame > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #ff9900;
+}
+
+
+
+.panel-team {
+  border-color: #005fa8;
+}
+.panel-team > .panel-heading {
+  color: #fff;
+  background-color: #005fa8;
+  border-color: #005fa8;
+}
+.panel-team >.panel-collapse > .panel-body {
+  background-color: #d8e2eb;
+}
+
+.panel-team > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #005fa8;
+}
+.panel-team > .panel-heading .badge {
+  color: #005fa8;
+  background-color: #fff;
+}
+.panel-team > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #005fa8;
+}
+
+
+.panel-registeredteam {
+  border-color: #ff9900;
+}
+.panel-registeredteam > .panel-heading {
+  color: #fff;
+  background-color: #ff9900;
+  border-color: #ff9900;
+}
+.panel-registeredteam >.panel-collapse > .panel-body {
+  background-color: #d8e2eb;
+}
+
+.panel-registeredteam > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #ff9900;
+}
+.panel-registeredteam > .panel-heading .badge {
+  color: #ff9900;
+  background-color: #fff;
+}
+.panel-registeredteam > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #ff9900;
+}
