@@ -24,6 +24,7 @@ func (c *HomeController) Get() {
 	c.Data["MailExtension"] = GetSettings().MailExtension
 	c.Data["SendMail"] = GetSettings().SenderMail
 	c.Data["Contact"] = GetSettings().Contact
+	c.Data["Logo"] = GetSettings().Logo
 	c.TplName = "index.html"
 	c.Render()
 }

@@ -9,4 +9,5 @@ type Settings struct {
 	SenderMail     string `json:"senderMail"`
 	SenderPassword string `json:"senderPassword"`
 	Contact        string `json:"contact"`
+	Logo           string `json:"logo"`
 }
