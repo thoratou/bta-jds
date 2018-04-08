@@ -69,7 +69,7 @@ func main() {
 				"Lieu : Route des 3 moulins, Antibes",
 				"Le nombre d'équipes est limité à 96",
 			})
-			controllers.CreateIndividualGame(createdBucket, "Belote / Jeux de l'Esprit", []string{
+			controllers.CreateIndividualGame(createdBucket, "Jeux de l'Esprit", []string{
 				"Notre épreuve vous propose des initiations comme des tournois : belote, awalé, jeu de Go, backgammon",
 				"Pas de certificat médical et/ou licence obligatoire ",
 				"Date limite d'inscription : Samedi 12 Mai 2018",
