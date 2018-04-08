@@ -136,7 +136,7 @@ func main() {
 				"Date limite d'inscription : Vendredi 8 Juin à 20h",
 				"Date de l'épreuve : Samedi 9 juin, de 16h00 à 20h00",
 			})
-			controllers.CreateIndividualGame(createdBucket, "E-Sport Test", []string{
+			controllers.CreateTeamGame(createdBucket, "E-Sport Test", 5, []string{
 				"20 équipes Counter Strike de 5 personnes, parties de 60 minutes (maximum)",
 				"Pas de certificat médical pour cette épreuve",
 				"Date limite d'inscription : Jeudi 7 Juin 2018",
@@ -148,7 +148,7 @@ func main() {
 				"Date limite d'inscription : Jeudi 31 Mai 2018",
 				"Date de l'épreuve : Samedi 2 Juin de 13h30 à 18h",
 			})
-			controllers.CreateIndividualGame(createdBucket, "Escape Game", []string{
+			controllers.CreateTeamGame(createdBucket, "Escape Game", 4, []string{
 				"Par équipe de 4 ou 5 personnes, parties de 90 minutes",
 				"Pas de certificat médical pour cette épreuve",
 				"Date limite d'inscription : Non Communiquée",
