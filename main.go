@@ -323,7 +323,7 @@ func main() {
 				"Date limite des inscriptions : Mardi 22 Mai 2018",
 				"Qualifications : Jeudi 24 Mai, Lundi 28 Mai, Lundi 4 Juin et Mardi 5 Juin de 18h à 22h",
 				"Finale : Le Samedi 9 Juin de 13h à 20h",
-				"Remise des prix : Mardi 12 juin 2017",
+				"Remise des prix : Mardi 12 juin 2018",
 			})
 			controllers.CreateIndividualGame(createdBucket, "Tennis de Table", []string{
 				"Tournois individuels (Féminin, Homme non classé et classé)",
