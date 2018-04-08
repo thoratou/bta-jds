@@ -111,7 +111,7 @@ func main() {
 			})
 			controllers.CreateIndividualGame(createdBucket, "Cross", []string{
 				"Cross 2 distances à parcourir : 3 km ou 9 km",
-				"Attention, l’épreuve se déroule en même temps que le trail, il n’est donc pas possible de participer aux deux épreuves."
+				"Attention, l’épreuve se déroule en même temps que le trail, il n’est donc pas possible de participer aux deux épreuves.",
 				"Certificat médical et/ou licence obligatoire",
 				"Date limite d'inscription : Samedi 12 mai 2018",
 				"Date de l'épreuve : Mardi 15 Mai de 17h à 20h",
@@ -360,7 +360,7 @@ func main() {
 			})
 			controllers.CreateIndividualGame(createdBucket, "Trail", []string{
 				"Course à pied nature (Trail) de 12 km pour 350 m de dénivelé positif.",
-				"Attention, l’épreuve se déroule en même temps que le cross (3/9 km), il n’est donc pas possible de participer aux deux épreuves."
+				"Attention, l’épreuve se déroule en même temps que le cross (3/9 km), il n’est donc pas possible de participer aux deux épreuves.",
 				"Certificat médical et/ou licence obligatoire",
 				"Date limite d’inscription : Samedi 12 mai 2018",
 				"Date de l'épreuve : Mardi 15 mai 2018 de 17h à 20h",
